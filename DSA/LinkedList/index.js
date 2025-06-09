@@ -23,7 +23,7 @@ class LinkedList {
         return new Node(value)
     }
 
-    append(value) {
+    prepend(value) {
         let node = this.createNode(value)
 
         if (this.isEmpty()) {
@@ -35,7 +35,7 @@ class LinkedList {
         this.size++
     }
 
-    prepend(value) {
+    append(value) {
         let node = this.createNode(value)
         if (this.isEmpty()) {
             this.head = node
@@ -83,10 +83,113 @@ class LinkedList {
             console.log(value)
         }
     }
+
+    removeMiddle() {
+        if (this.size < 2) {
+            return
+        }
+
+        let fast = this.head
+        let slow = this.head
+        let prev = null
+
+        while (fast.next && fast) {
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        }
+
+        prev.next = slow.next
+        this.size--
+
+    }
+
+    search(value) {
+        if (this.isEmpty()) {
+            return null
+        }
+        let curr = this.head
+        while (curr) {
+            if (curr.value == value) {
+                return true
+            }
+            curr = curr.next
+        }
+        return false
+    }
+
+    searchByIndex(index) {
+        if (this.isEmpty() || index < 0 || index >= this.size) {
+            return null
+        }
+
+        let prev = this.head
+        for (let i = 0; i < index; i++) {
+            prev = prev.next
+        }
+        return prev.value
+    }
+
+    removeEvenNumbers() {
+        if (this.isEmpty()) return null
+        while (this.head && this.head.value % 2 == 0) {
+            this.head = this.head.next
+            this.size--
+        }
+        if (this.isEmpty()) return null
+        let prev = this.head
+        while (prev.next) {
+            if (prev.next.value % 2 == 0) {
+                prev.next = prev.next.next
+                this.size--
+            } else {
+                prev = prev.next
+            }
+        }
+        this.display()
+    }
+
+    removeDuplicateFromUnsorted() {
+        let curr = this.head
+        let prev = null
+        let seen = new Set()
+        while (curr && curr.next) {
+            if (seen.has(curr.value)) {
+                prev.next = curr.next
+                this.size--
+            } else {
+                seen.add(curr.value)
+                prev = curr
+            }
+            curr = curr.next
+        }
+    }
+
+    reverse() {
+        let prev = null
+        let curr = this.head
+        while (curr) {
+            let next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        }
+        this.head = prev
+    }
 }
 
-let arr = [2, 4, 2, 54, 6]
+let arr = [2, 4, 2, 3, 87]
 let list = new LinkedList()
 
 arr.forEach(item => list.append(item))
 list.display()
+
+console.log(list.searchByIndex(5))
+console.log(list.search(54))
+list.removeMiddle()
+list.display()
+list.removeDuplicateFromUnsorted()
+list.display()
+list.reverse()
+list.display()
+list.removeEvenNumbers()
