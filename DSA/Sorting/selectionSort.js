@@ -7,10 +7,10 @@ const selectionSort = (arr) => {
             }
         }
         if (minIndex !== i) {
-            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
+            [arr[minIndex], arr[i]] = [arr[i], arr[minIndex]]
         }
     }
     return arr
 }
 
-console.log(selectionSort([2, 6, 2, 4, 2, 67, 4]))
+console.log(selectionSort([3, 6, 2, 56, 7, 8, 12]))
