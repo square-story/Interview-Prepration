@@ -1,3 +1,4 @@
 ✔ create customHook @done(25-06-09 23:55)
 ✔ create search functionality @done(25-06-09 23:55)
 ✔ implement debouncing in the search functionality @started(25-06-10 10:01) @done(25-06-10 11:02) @lasted(1h1m20s)
+✔  Write a custom hook to copy text to clipboard @started(25-06-10 12:07) @done(25-06-10 12:21) @lasted(14m20s)
