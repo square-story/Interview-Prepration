@@ -1,8 +1,8 @@
 ✔ Add Memorisation to the code @started(25-06-12 18:26) @done(25-06-12 18:37) @lasted(11m13s)
 ✔ Add a function to check if the number is prime @started(25-06-13 11:19) @done(25-06-13 11:44) @lasted(25m24s)
 ✔ Add a function to check if the number is a palindrome @started(25-06-14 13:04) @done(25-06-14 13:07) @lasted(3m40s)
-☐ Add a Promise to the code
-☐ Add a Async/Await to the code
+✔ Add a Promise to the code @started(25-06-15 01:18) @done(25-06-15 01:18) @lasted(29s)
+✔ Add a Async/Await to the code @done(25-06-15 01:51)
 ☐ Add a Fetch to the code
 ☐ Add a Debounce to the code
 ✔ Add a Throttle to the code @started(25-06-13 10:17) @done(25-06-13 10:44) @lasted(27m35s)
