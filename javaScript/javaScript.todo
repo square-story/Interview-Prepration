@@ -1,6 +1,6 @@
 ✔ Add Memorisation to the code @started(25-06-12 18:26) @done(25-06-12 18:37) @lasted(11m13s)
 ✔ Add a function to check if the number is prime @started(25-06-13 11:19) @done(25-06-13 11:44) @lasted(25m24s)
-☐ Add a function to check if the number is a palindrome 
+✔ Add a function to check if the number is a palindrome @started(25-06-14 13:04) @done(25-06-14 13:07) @lasted(3m40s)
 ☐ Add a Promise to the code
 ☐ Add a Async/Await to the code
 ☐ Add a Fetch to the code
