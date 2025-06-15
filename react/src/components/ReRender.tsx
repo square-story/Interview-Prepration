@@ -1,14 +1,23 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const ReRender = () => {
+    const [resizeInfo, setResizeInfo] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    })
     useEffect(() => {
         function something() {
-            console.log(`the changes happend in the width: ${window.innerWidth} and the hight: ${window.innerHeight}`)
+            return setResizeInfo({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
         }
         window.addEventListener('resize', something)
-    })
+
+        return () => window.removeEventListener('resize', something)
+    }, [])
     return (
-        <div>ReRender</div>
+        <div>{`ReRender width is ${resizeInfo.width} and hight is ${resizeInfo.height}`}</div>
     )
 }
 
