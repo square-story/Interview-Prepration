@@ -1,7 +1,7 @@
 const arr = [4, 6, 2, 3, 63, 43, 546, 323, 34, 2, 563, 4]
 
 
-const findSecondLargest = arr => {
+const findSecondAndThirdLargest = arr => {
     return arr.reduce((acc, curr) => {
         if (acc.largest < curr) {
             acc.thirdLargest = acc.secondLargest
