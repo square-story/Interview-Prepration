@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import "./App.css"
 import ChildInput from "./components/ChildInput"
+import { Todo } from "./pages/Todo"
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
       <button onClick={restart}>restart</button>
       <ChildInput ref={inputRef} />
       <button onClick={focusInput}>OnFocus</button>
+      <Todo />
     </>
   )
 }
