@@ -17,3 +17,23 @@ Key Differences from Set and Map:
     Keys: WeakMap keys must be objects.
     Iterable: WeakSet and WeakMap are not iterable.
  */
+
+
+const weakmap = new WeakMap()
+const normalMap = new Map()
+
+normalMap.set('something', 'something more')
+
+console.log(normalMap.get('something'))
+
+let something = { name: "SADIK" }
+
+weakmap.set(something, 'something new happen') //Keys must be objects (not primitives).
+
+console.log(weakmap.get(something))
+
+something = null // Now the object has no other reference
+
+//it will garbage collected the weakmap ref
+
+console.log('getting ref:', weakmap.get(something))
