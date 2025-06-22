@@ -37,3 +37,34 @@ something = null // Now the object has no other reference
 //it will garbage collected the weakmap ref
 
 console.log('getting ref:', weakmap.get(something))
+
+//A WeakSet is a collection of unique objects.
+
+const normalSet = new Set()
+const weakSet = new WeakSet()
+
+let somethingNewSet = { name: "Ashique" }
+
+
+normalSet.add("something")
+
+console.log(normalSet)
+
+normalSet.add(somethingNewSet)
+console.log(normalSet)
+
+weakSet.add(normalSet)
+
+console.log(weakSet.has(normalSet))
+
+somethingNewSet = null //object can now be garbage collected
+
+
+/**
+ * ❗ Why “Weak”?
+Because they don’t prevent garbage collection. They do not keep strong references to their keys/values. This means:
+
+You cannot iterate over WeakMap or WeakSet
+
+No .size, .keys(), .values(), .entries() — only .get(), .set(), .has(), .delete() for WeakMap and .add(), .has(), .delete() for WeakSet
+ */
