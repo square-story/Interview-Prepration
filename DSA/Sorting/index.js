@@ -1,5 +1,6 @@
-const arr = [2, 56, 6, 8, 7, 3, 5, 73]
-const bubbleSort = (arr) => {
+const arr = [2, 5, 2, 4, 5, 4, 575, 34, 643, 5, 3, 6353, 435, 44]
+
+const bubbleSort = arr => {
     let swapped;
     do {
         swapped = false
@@ -17,43 +18,46 @@ const bubbleSort = (arr) => {
 
 console.log(bubbleSort(arr))
 
-const selectionSort = (arr) => {
-    for (let i = 0; i < arr.length - 1; i++) {
+const selectionSort = array => {
+    for (let i = 0; i < array.length - 1; i++) {
         let minIndex = i
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[minIndex] > arr[j]) {
+        for (let j = i + 1; j < array.length; j++) {
+            if (array[j] < array[minIndex]) {
                 minIndex = j
             }
         }
 
         if (minIndex !== i) {
-            [arr[minIndex], arr[i]] = [arr[i], arr[minIndex]]
+            [array[minIndex], array[i]] = [array[i], array[minIndex]]
         }
-    }
-    return arr
-}
-
-console.log(selectionSort(arr))
-
-
-const insertionSort = (array) => {
-    for (let i = 1; i < array.length; i++) {
-        const current = array[i];
-        let j = i - 1
-        while (j >= 0 && array[j] > current) {
-            array[j + 1] = array[j]
-            j--
-        }
-        array[j + 1] = current
     }
 
     return array
 }
 
+
+console.log(selectionSort(arr))
+
+const insertionSort = arr => {
+    for (let i = 1; i < arr.length; i++) {
+        let value = arr[i]
+        let j = i - 1
+        while (j >= 0 && arr[j] > value) {
+            arr[j + 1] = arr[j]
+            j--
+        }
+
+        arr[j + 1] = value
+    }
+
+    return arr
+}
+
+
 console.log(insertionSort(arr))
 
 
-const quickSort = (arr) => {
+const quickSort = arr => {
     if (arr.length < 2) return arr
     let pivot = arr[arr.length - 1]
     let left = []
@@ -65,31 +69,32 @@ const quickSort = (arr) => {
             right.push(arr[i])
         }
     }
+
     return [...quickSort(left), pivot, ...quickSort(right)]
 }
 
 console.log(quickSort(arr))
 
 
-const mergeSort = (arr) => {
+const mergeSort = arr => {
     if (arr.length < 2) return arr
-    const middle = Math.floor(arr.length / 2)
-    const left = arr.slice(0, middle)
-    const right = arr.slice(middle)
+    let middle = Math.floor(arr.length / 2)
+    let left = arr.slice(0, middle)
+    let right = arr.slice(middle)
+    const merge = (left, right) => {
+        let result = []
+        while (left.length && right.length) {
+            if (left[0] < right[0]) {
+                result.push(left.shift())
+            } else {
+                result.push(right.shift())
+            }
+        }
+        return [...result, ...left, ...right]
+    }
     return merge(mergeSort(left), mergeSort(right))
 }
 
-const merge = (left, right) => {
-    let arr = []
-    while (left.length && right.length) {
-        if (left[0] < right[0]) {
-            arr.push(left.shift())
-        } else {
-            arr.push(right.shift())
-        }
-    }
 
-    return [...arr, ...left, ...right]
-}
 
-console.log(mergeSort(arr))
+console.log(mergeSort(arr));
