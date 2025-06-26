@@ -1,15 +1,22 @@
 const arr = require('../problems/randomArray')
-Array.prototype.myMap = function (callback) {
+Array.prototype.myMap = function (callback, thisArg) {
+    if (typeof callback !== 'function') throw new TypeError(callback + "not an function")
+    let arr = this
     let result = []
-    for (let i = 0; i < this.length; i++) {
-        result.push(callback(this[i], i, this))
+
+    for (let i = 0; i < arr.length; i++) {
+        if (i in arr) {
+            result.push(callback.call(thisArg, arr[i], i))
+        }
     }
+
     return result
+
 }
 
-console.log(arr)
+console.log('Orginal Array:', arr)
 
-console.log(arr.myMap(String))
+console.log('After String Convertion:', arr.myMap(String))
 
 
 //Extending Built-In
@@ -33,3 +40,12 @@ console.log("sadik".sayHello())
 | `new`               | Creates a new object linked to the constructor’s prototype |
 
  */
+
+
+const context = { multiple: 10 }
+
+const something = arr.myMap(function (item, index, orginalArray) {
+    return item * this.multiple
+}, context)
+
+console.log(something)
