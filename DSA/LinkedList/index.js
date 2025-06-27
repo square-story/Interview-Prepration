@@ -176,6 +176,19 @@ class LinkedList {
         }
         this.head = prev
     }
+
+    hasCycle() {
+        let fast = this.head
+        let slow = this.head
+        while (fast && fast.next) {
+            slow = slow.next
+            fast = fast.next.next
+            if (slow === fast) {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 let arr = [2, 4, 2, 3, 87]
@@ -193,3 +206,4 @@ list.display()
 list.reverse()
 list.display()
 list.removeEvenNumbers()
+console.log(list.hasCycle())
