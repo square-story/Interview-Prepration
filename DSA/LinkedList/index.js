@@ -165,6 +165,63 @@ class LinkedList {
         }
     }
 
+    listToArray() {
+        if (this.isEmpty()) return
+        let result = []
+        let curr = this.head
+        while (curr) {
+            result.push(curr.value)
+            curr = curr.next
+        }
+        return result
+    }
+
+    _getMiddle(head) {
+        let slow = head;
+        let fast = head.next;
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    sort() {
+        this.head = this._mergeSort(this.head)
+    }
+
+    _mergeSort(head) {
+        if (!head || !head.next) return head;
+
+        let mid = this._getMiddle(head);
+        let right = mid.next;
+        mid.next = null; // split the list into two
+
+        const leftSorted = this._mergeSort(head);
+        const rightSorted = this._mergeSort(right);
+
+        return this._merge(leftSorted, rightSorted);
+    }
+
+    _merge(l1, l2) {
+        let dummy = new Node(0);
+        let current = dummy;
+
+        while (l1 && l2) {
+            if (l1.value < l2.value) {
+                current.next = l1;
+                l1 = l1.next;
+            } else {
+                current.next = l2;
+                l2 = l2.next;
+            }
+            current = current.next;
+        }
+
+        current.next = l1 || l2;
+        return dummy.next;
+    }
+
     reverse() {
         let prev = null
         let curr = this.head
@@ -207,3 +264,6 @@ list.reverse()
 list.display()
 list.removeEvenNumbers()
 console.log(list.hasCycle())
+console.log("Sorted list:");
+list.sort();
+list.display();
