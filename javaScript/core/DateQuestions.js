@@ -39,3 +39,17 @@ function getInfoAboutBirthDay(birthday) {
 }
 
 console.log("🎂 Days left until your next birthday: ", getInfoAboutBirthDay('06-july'))
+
+//Display the current time in HH:mm:ss format (24-hour clock).
+
+function displayTime() {
+    const now = new Date()
+    const hours = String(now.getHours()).padStart(2, "0")
+    const minute = String(now.getMinutes()).padStart(2, '0')
+    const second = String(now.getSeconds()).padEnd(2, "0")
+
+    return `${hours}-${minute}-${second}`
+}
+
+
+console.log(displayTime())
