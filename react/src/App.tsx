@@ -1,6 +1,6 @@
 
 import "./App.css"
-import { EventDelegationExample } from "./components/EventDelegationExample"
+import ToggleCheck from "./components/toggleCheck"
 
 
 
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <>
-      <EventDelegationExample />
+      <ToggleCheck />
     </>
   )
 }
