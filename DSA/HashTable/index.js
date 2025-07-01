@@ -27,6 +27,18 @@ class HashTable {
         }
     }
 
+    has(key) {
+        let index = this.hash(key)
+        let bucket = this.table[index]
+        if (bucket) {
+            let sameItem = bucket.find(item => item[0] === key)
+            if (sameItem) {
+                return true
+            }
+        }
+        return false
+    }
+
     get(key) {
         let index = this.hash(key)
         let bucket = this.table[index]
@@ -74,4 +86,18 @@ console.log('retreavals....')
 console.log(table.get('mane'))
 console.log(table.get('name'))
 console.log(table.get('mae'))
+
+function detectDuplicate(arr) {
+    let seen = new HashTable(arr.length)
+    for (let el of arr) {
+        if (seen.has(String(el))) {
+            seen.set(String(el), seen.get(String(el)) + 1)
+        } else {
+            seen.set(String(el), 1)
+        }
+    }
+    return seen.display()
+}
+
+console.log(detectDuplicate([4, 5, 3, 5, 6, 34, 6, 4, 5, 4, 6, 32, 5, 7, 3]))
 
