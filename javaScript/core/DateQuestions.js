@@ -10,3 +10,12 @@ function remainingDays() {
 }
 
 console.log('Remaining Days: ' + remainingDays() + " Days")
+
+
+//Get today's date in YYYY-MM-DD format.
+
+function getDateFormate() {
+    return new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).replace(/ /g, '-')
+}
+
+console.log(getDateFormate())
