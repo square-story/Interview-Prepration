@@ -1,6 +1,6 @@
 
 import "./App.css"
-import ToggleCheck from "./components/toggleCheck"
+import ToggleCheck from "./components/ToggleCheck"
 
 
 
