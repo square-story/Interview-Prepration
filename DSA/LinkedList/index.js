@@ -267,3 +267,4 @@ console.log(list.hasCycle())
 console.log("Sorted list:");
 list.sort();
 list.display();
+

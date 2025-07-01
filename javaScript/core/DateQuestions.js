@@ -74,3 +74,15 @@ function currentTime12Format() {
 
 
 console.log(currentTime12Format())
+
+
+function currentTimeExp() {
+    let current = new Date();
+    console.log(current.getDate())
+    let midnight = new Date(current.getFullYear(), current.getMonth(), current.getDate());
+    let difference = current - midnight
+    let minutesGone = Math.floor(difference / (1000 * 60 * 60));
+    console.log(`Minutes gone after midnight: ${minutesGone}`);
+}
+
+currentTimeExp()
