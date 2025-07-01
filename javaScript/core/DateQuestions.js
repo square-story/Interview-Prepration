@@ -51,6 +51,14 @@ function displayTime() {
     return `${hours} - ${minute} - ${second}`
 }
 
+//Add 7 days to the current date.
+
+function addDays(days) {
+    const now = new Date()
+    return new Date(`${now.getDay() + days} / ${now.getMonth()} / ${now.getFullYear()}`).toLocaleString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })
+}
+
+console.log("Add 7 days to the current date: ", addDays(7))
 
 console.log(displayTime())
 
