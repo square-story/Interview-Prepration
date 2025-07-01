@@ -19,3 +19,23 @@ function getDateFormate() {
 }
 
 console.log(getDateFormate())
+
+//Find how many days are left until your next birthday.
+
+function getInfoAboutBirthDay(birthday) {
+    let today = new Date()
+    let getYear = today.getFullYear()
+
+    let nextBirthday = new Date(`${getYear}-${birthday}`)
+
+
+    //if birthday already passed
+    if (today > nextBirthday) {
+        nextBirthday = new Date(`${getYear + 1}-${birthday}`)
+    }
+
+    let difference = nextBirthday - today
+    return Math.ceil(difference / (1000 * 60 * 60 * 24))
+}
+
+console.log("🎂 Days left until your next birthday: ", getInfoAboutBirthDay('06-july'))
