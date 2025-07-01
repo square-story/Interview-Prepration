@@ -1,6 +1,6 @@
 
 import "./App.css"
-import DropList from "./components/DropList"
+import { EventDelegationExample } from "./components/eventDelegationExample"
 
 
 
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <>
-      <DropList />
+      <EventDelegationExample />
     </>
   )
 }
