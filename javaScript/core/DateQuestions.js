@@ -48,8 +48,21 @@ function displayTime() {
     const minute = String(now.getMinutes()).padStart(2, '0')
     const second = String(now.getSeconds()).padEnd(2, "0")
 
-    return `${hours}-${minute}-${second}`
+    return `${hours} - ${minute} - ${second}`
 }
 
 
 console.log(displayTime())
+
+function currentTime12Format() {
+    const now = new Date()
+    let hour = now.getHours()
+    const ampm = hour > 12 ? "PM" : "AM";
+    hour = hour % 12 || 12
+    const minute = String(now.getMinutes()).padStart(2, "0")
+    const second = String(now.getSeconds()).padStart(2, "0")
+    return `${String(hour).padStart(2, "0")} - ${minute} - ${second}`
+}
+
+
+console.log(currentTime12Format())
