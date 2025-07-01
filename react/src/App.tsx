@@ -1,6 +1,6 @@
 
 import "./App.css"
-import { EventDelegationExample } from "./components/eventDelegationExample"
+import { EventDelegationExample } from "./components/EventDelegationExample"
 
 
 
