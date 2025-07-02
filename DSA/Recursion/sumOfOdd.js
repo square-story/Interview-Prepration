@@ -11,7 +11,11 @@ function sumOfOddNumber(arr) {
     return sum
 }
 
+const arr = [1, 2, [6, 4, [8, 9], 5], 3]
 
-console.log(sumOfOddNumber([1, 2, [6, 4, [8, 9], 5], 3]))
+
+console.log(sumOfOddNumber(arr))
+
+console.log(arr.flat(Infinity).filter(item => item % 2 == 1).reduce((acc, curr) => acc += curr, 0))
 
 
