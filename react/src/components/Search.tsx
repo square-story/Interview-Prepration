@@ -6,7 +6,7 @@ const Search = () => {
     const [search, setSearch] = useState("")
     const [data, setData] = useState<IPerson[]>([])
     const [filteredData, setFilteredData] = useState<IPerson[]>([])
-    const debouncedSearch = useDebounce(search, 3000)
+    const debouncedSearch = useDebounce(search, 1000)
     useEffect(() => {
         const fetchData = async () => {
             const response: IPerson[] = await fetch("https://jsonplaceholder.typicode.com/users").then(res => res.json())
