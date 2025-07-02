@@ -1,6 +1,6 @@
 
 import "./App.css"
-import ToggleCheck from "./components/ToggleCheck"
+import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
 
 
 
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <>
-      <ToggleCheck />
+      <EffectAndLayoutEffect />
     </>
   )
 }
