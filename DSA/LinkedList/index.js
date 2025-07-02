@@ -207,6 +207,23 @@ class LinkedList {
         this.display()
     }
 
+    leastOccurance() {
+        let map = new Map()
+        let curr = this.head
+        while (curr) {
+            map.set(curr.value, (map.get(curr.value) || 0) + 1)
+            curr = curr.next
+        }
+
+        let least = Math.min(...map.values())
+
+        for (let [key, value] of map.entries()) {
+            if (least === value) {
+                return key
+            }
+        }
+    }
+
     removeDuplicateFromUnsorted() {
         let curr = this.head
         let prev = null
@@ -316,8 +333,6 @@ console.log(list.searchByIndex(5))
 console.log(list.search(54))
 list.removeMiddle()
 list.display()
-list.removeDuplicateFromUnsorted()
-list.display()
 list.reverse()
 list.display()
 console.log('Is this linkedlist has cycle:', list.hasCycle())
@@ -325,4 +340,5 @@ console.log(list.removekthElementFromLast(3))
 list.display()
 
 console.log(list.secondSmallest())
+console.log(list.leastOccurance())
 
