@@ -136,6 +136,24 @@ class LinkedList {
         return false
     }
 
+    secondSmallest() {
+        if (this.isEmpty()) return null
+        let small = Infinity;
+        let secSmall = Infinity;
+        let curr = this.head
+        while (curr) {
+            if (curr.value < small) {
+                secSmall = small
+                small = curr.value
+            } else if (secSmall > curr.value && curr.value !== small) {
+                secSmall = curr.value
+            }
+            curr = curr.next
+        }
+
+        return secSmall
+    }
+
     searchByIndex(index) {
         if (this.isEmpty() || index < 0 || index >= this.size) {
             return null
@@ -288,7 +306,7 @@ class LinkedList {
     }
 }
 
-let arr = [2, 4, 2, 3, 87]
+let arr = [2, 4, 2, 3, 873, 534, 2, 4, 3, 4, 4, 7, 3, 24, 7, 35, 4]
 let list = new LinkedList()
 
 arr.forEach(item => list.append(item))
@@ -302,10 +320,9 @@ list.removeDuplicateFromUnsorted()
 list.display()
 list.reverse()
 list.display()
-console.log(list.hasCycle())
-console.log("Sorted list:");
-list.sort();
-list.display();
+console.log('Is this linkedlist has cycle:', list.hasCycle())
 console.log(list.removekthElementFromLast(3))
 list.display()
+
+console.log(list.secondSmallest())
 
