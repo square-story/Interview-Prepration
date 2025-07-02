@@ -148,6 +148,28 @@ class LinkedList {
         return prev.value
     }
 
+    removekthElementFromLast(k) {
+        if (this.isEmpty() || this.size < k || !Number.isInteger(k)) {
+            return -1
+        }
+
+        let fast = this.head
+        let slow = this.head
+        for (let index = 0; index <= k; index++) {
+            fast = fast.next
+        }
+
+        while (fast) {
+            fast = fast.next
+            slow = slow.next
+        }
+        let removeValue = slow.next.value
+        slow.next = slow.next.next
+        this.size--
+        return removeValue
+
+    }
+
     removeEvenNumbers() {
         if (this.isEmpty()) return null
         while (this.head && this.head.value % 2 == 0) {
@@ -280,9 +302,10 @@ list.removeDuplicateFromUnsorted()
 list.display()
 list.reverse()
 list.display()
-list.removeEvenNumbers()
 console.log(list.hasCycle())
 console.log("Sorted list:");
 list.sort();
 list.display();
+console.log(list.removekthElementFromLast(3))
+list.display()
 
