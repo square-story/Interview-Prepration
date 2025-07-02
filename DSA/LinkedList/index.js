@@ -104,6 +104,24 @@ class LinkedList {
 
     }
 
+    removeKthElement(k) {
+        if (this.isEmpty() || k < 0 || k >= this.size || !Number.isInteger(k)) return;
+        let removeValue;
+        if (k === 0) {
+            removeValue = this.head.value;
+            this.head = this.head.next;
+        } else {
+            let curr = this.head;
+            for (let i = 0; i < k - 1; i++) {
+                curr = curr.next;
+            }
+            removeValue = curr.next.value;
+            curr.next = curr.next.next;
+        }
+        this.size--;
+        return removeValue;
+    }
+
     search(value) {
         if (this.isEmpty()) {
             return null
