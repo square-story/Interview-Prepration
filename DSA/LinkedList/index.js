@@ -207,6 +207,20 @@ class LinkedList {
         this.display()
     }
 
+    //linked list first two and last two sum
+    sumOfTwoSideValues() {
+        if (this.isEmpty() || this.getSize() < 4) return
+        let curr = this.head
+        let collections = []
+        while (curr) {
+            collections.push(curr.value)
+            curr = curr.next
+        }
+
+        let sum = (collections[0] + collections[1]) + (collections[collections.length - 1] + collections[collections.length - 2])
+        return sum
+    }
+
     leastOccurance() {
         let map = new Map()
         let curr = this.head
@@ -341,4 +355,6 @@ list.display()
 
 console.log(list.secondSmallest())
 console.log(list.leastOccurance())
+
+console.log('The last and first 2 value sum is : ', list.sumOfTwoSideValues())
 
