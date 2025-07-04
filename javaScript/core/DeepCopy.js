@@ -1,15 +1,14 @@
 function deepCopy(value) {
-    if (value === null || typeof value !== 'object') return value; //handle null or primitive values
-    if (Array.isArray(value)) return value.map(deepCopy); //handle arrays
-    //handle plain object
-    const copiedObject = {}
-    for (const key in value) {
-        if (value.hasOwnProperty(key)) {
-            copiedObject[key] = deepCopy(value[key])
+    if (value === null || typeof value !== 'object') return value
+    if (Array.isArray(value)) return value.map(deepCopy)
+
+    let copied = {}
+    for (const el in value) {
+        if (value.hasOwnProperty(el)) {
+            copied[el] = deepCopy(value[el])
         }
     }
-
-    return copiedObject
+    return copied
 }
 
 
