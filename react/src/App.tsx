@@ -2,6 +2,7 @@
 import "./App.css"
 import CounterUsingReducer from "./components/CounterUsingReducer"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
+import { PreventContext } from "./components/PreventContext"
 import ReverseAString from "./components/ReverseAString"
 import ToggleExample from "./components/ToggleExample"
 import { useFetch } from "./hooks/useFetch"
@@ -27,6 +28,7 @@ const App = () => {
       <ReverseAString />
       <CounterUsingReducer />
       <ToggleExample />
+      <PreventContext />
       <ul>
         {data?.map((user: IFetchUser) => (
           <li key={user.id}>{user.first_name}</li>
