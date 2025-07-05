@@ -1,7 +1,7 @@
 
 import "./App.css"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
-import Search from "./components/Search"
+import ReverseAString from "./components/ReverseAString"
 import ToggleExample from "./components/ToggleExample"
 import { useFetch } from "./hooks/useFetch"
 import type { IFetchUser } from "./hooks/useFetchUser"
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <>
       <EffectAndLayoutEffect />
-      <Search />
+      <ReverseAString />
       <ToggleExample />
       <ul>
         {data?.map((user: IFetchUser) => (
