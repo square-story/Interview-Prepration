@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-interface IFetchUser {
+export interface IFetchUser {
     id: number,
     first_name: string,
     last_name: string,
