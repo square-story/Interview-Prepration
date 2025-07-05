@@ -3,22 +3,32 @@ import "./App.css"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
 import Search from "./components/Search"
 import ToggleExample from "./components/ToggleExample"
-import { useFetchUser } from "./hooks/useFetchUser"
+import { useFetch } from "./hooks/useFetch"
 
+type IUser = {
+  id: number;
+  name: string;
+  username: string;
+}
 
 
 const App = () => {
+  const { data, error, loading } = useFetch<IUser[]>('https://jsonplaceholder.typicode.com/users')
 
-  const { value } = useFetchUser()
+  if (loading) return <p>Loading....</p>
+  if (error) return <p style={{ color: 'red' }}>{error}</p>
 
+  console.log(data)
   return (
     <>
       <EffectAndLayoutEffect />
       <Search />
       <ToggleExample />
-      {value.map((item, index) => (
-        <p key={index}>{item.first_name}</p>
-      ))}
+      <ul>
+        {data?.map((user: IUser) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
     </>
   )
 }
