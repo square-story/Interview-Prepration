@@ -1,5 +1,6 @@
 
 import "./App.css"
+import CounterUsingReducer from "./components/CounterUsingReducer"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
 import ReverseAString from "./components/ReverseAString"
 import ToggleExample from "./components/ToggleExample"
@@ -24,6 +25,7 @@ const App = () => {
     <>
       <EffectAndLayoutEffect />
       <ReverseAString />
+      <CounterUsingReducer />
       <ToggleExample />
       <ul>
         {data?.map((user: IFetchUser) => (
