@@ -16,6 +16,9 @@ const handler = {
     },
     set(target, prop, value) {
         console.log(`Property "${prop}" set to "${value}"`);
+        if (prop === 'age' && typeof prop !== 'number') {
+            throw new Error(`The ${prop} only contain Number type`)
+        }
         target[prop] = value;
         return true;
     }
@@ -24,5 +27,6 @@ const handler = {
 const proxy = new Proxy(target, handler);
 
 console.log(proxy.name);     // logs the get trap
-proxy.age = 30;              // logs the set trap
+proxy.age = 30;
+proxy.age = "30";              // logs the set trap              // logs the set trap
 console.log(proxy.age);      // logs the get trap again
