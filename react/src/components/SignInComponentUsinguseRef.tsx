@@ -10,8 +10,6 @@ const SignInComponentUsinguseRef = () => {
             (emailRef.current as HTMLInputElement | null)?.value,
             (passwordRef.current as HTMLInputElement | null)?.value
         )
-
-
     }
     return (
         <form onSubmit={handleSubmit}>
