@@ -32,3 +32,14 @@ console.log(proxy.name);     // logs the get trap
 proxy.age = 30;
 proxy.age = 0;              // logs the set trap              // logs the set trap
 console.log(proxy.age);      // logs the get trap again
+
+
+/**
+| Trap               | Description                            | Example              |
+| ------------------ | -------------------------------------- | -------------------- |
+| `get()`            | Intercept property access              | `proxy.name`         |
+| `set()`            | Intercept property assignment          | `proxy.age = 30`     |
+| `has()`            | Intercept `in` operator                | `'name' in proxy`    |
+| `deleteProperty()` | Intercept `delete` operation           | `delete proxy.name`  |
+| `ownKeys()`        | Intercept `Object.keys()` / `for...in` | `Object.keys(proxy)` |
+ */
