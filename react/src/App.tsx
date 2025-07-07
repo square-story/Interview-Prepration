@@ -4,6 +4,7 @@ import CounterUsingReducer from "./components/CounterUsingReducer"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
 import { PreventContext } from "./components/PreventContext"
 import ReverseAString from "./components/ReverseAString"
+import SignInComponentUsinguseRef from "./components/SignInComponentUsinguseRef"
 import ToggleExample from "./components/ToggleExample"
 import { useFetch } from "./hooks/useFetch"
 import type { IFetchUser } from "./hooks/useFetchUser"
@@ -34,6 +35,7 @@ const App = () => {
           <li key={user.id}>{user.first_name}</li>
         ))}
       </ul>
+      <SignInComponentUsinguseRef />
     </>
   )
 }
