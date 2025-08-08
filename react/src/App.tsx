@@ -6,6 +6,7 @@ import { PreventContext } from "./components/PreventContext"
 import ReverseAString from "./components/ReverseAString"
 import SignInComponentUsinguseRef from "./components/SignInComponentUsinguseRef"
 import ToggleExample from "./components/ToggleExample"
+import { TurnCounter } from "./components/TurnCounter"
 import { useFetch } from "./hooks/useFetch"
 import type { IFetchUser } from "./hooks/useFetchUser"
 
@@ -30,6 +31,7 @@ const App = () => {
       <CounterUsingReducer />
       <ToggleExample />
       <PreventContext />
+      <TurnCounter />
       <ul>
         {data?.map((user: IFetchUser) => (
           <li key={user.id}>{user.first_name}</li>
