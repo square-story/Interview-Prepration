@@ -1,273 +1,309 @@
 class Node {
     constructor(value) {
-        this.value = value
-        this.next = null
+        this.value = value;
+        this.next = null;
     }
 }
 
 class LinkedList {
     constructor() {
-        this.head = null
-        this.size = 0
+        this.head = null;
+        this.size = 0;
     }
 
+    // Utility
     isEmpty() {
-        return this.size == 0
+        return this.size === 0;
     }
 
     getSize() {
-        return this.size
+        return this.size;
     }
 
     createNode(value) {
-        return new Node(value)
+        return new Node(value);
     }
 
+    // Insert
     prepend(value) {
-        let node = this.createNode(value)
-
-        if (this.isEmpty()) {
-            this.head = node
-        } else {
-            node.next = this.head
-            this.head = node
-        }
-        this.size++
+        const node = this.createNode(value);
+        node.next = this.head;
+        this.head = node;
+        this.size++;
     }
 
     append(value) {
-        let node = this.createNode(value)
+        const node = this.createNode(value);
         if (this.isEmpty()) {
-            this.head = node
-        } else {
-            let prev = this.head
-            while (prev.next) {
-                prev = prev.next
-            }
-            prev.next = node
-        }
-        this.size++
-    }
-
-    removeFromIndex(index) {
-        if (index >= this.getSize() || index < 0 || this.isEmpty()) {
-            return null
-        }
-
-        let removeNode;
-        if (index === 0) {
-            removeNode = this.head
-            this.head = removeNode.next
-        } else {
-            let prev = this.head
-            for (let i = 0; i < index - 1; i++) {
-                prev = prev.next
-            }
-            removeNode = prev.next
-            prev.next = removeNode.next
-        }
-        this.size--
-        return removeNode.value
-    }
-
-    display() {
-        if (this.isEmpty()) {
-            return null
-        } else {
-            let prev = this.head;
-            let value = "";
-            while (prev) {
-                value += prev.value + "-->"
-                prev = prev.next
-            }
-            console.log(value)
-        }
-    }
-
-    removeMiddle() {
-        if (this.size < 2) {
-            return
-        }
-
-        let fast = this.head
-        let slow = this.head
-        let prev = null
-
-        while (fast && fast.next) {
-            prev = slow
-            slow = slow.next
-            fast = fast.next.next
-        }
-
-        prev.next = slow.next
-        this.size--
-
-    }
-
-    removeKthElement(k) {
-        if (this.isEmpty() || k < 0 || k >= this.size || !Number.isInteger(k)) return;
-        let removeValue;
-        if (k === 0) {
-            removeValue = this.head.value;
-            this.head = this.head.next;
+            this.head = node;
         } else {
             let curr = this.head;
-            for (let i = 0; i < k - 1; i++) {
+            while (curr.next) {
                 curr = curr.next;
             }
-            removeValue = curr.next.value;
-            curr.next = curr.next.next;
+            curr.next = node;
+        }
+        this.size++;
+    }
+
+    // Remove by index
+    removeFromIndex(index) {
+        if (index < 0 || index >= this.size || this.isEmpty()) return null;
+
+        let removedNode;
+        if (index === 0) {
+            removedNode = this.head;
+            this.head = this.head.next;
+        } else {
+            let prev = this._getNodeAt(index - 1);
+            removedNode = prev.next;
+            prev.next = removedNode.next;
         }
         this.size--;
-        return removeValue;
+        return removedNode.value;
     }
 
+    // Remove middle node
+    removeMiddle() {
+        if (this.size < 2) return;
+
+        let fast = this.head;
+        let slow = this.head;
+        let prev = null;
+
+        while (fast && fast.next) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if (prev) {
+            prev.next = slow.next;
+            this.size--;
+        }
+    }
+
+    // Remove kth node from start
+    removeKthElement(k) {
+        if (k < 0 || k >= this.size || !Number.isInteger(k)) return null;
+        return this.removeFromIndex(k);
+    }
+
+    // Remove kth node from end
+    removeKthElementFromLast(k) {
+        if (k <= 0 || k > this.size || !Number.isInteger(k)) return null;
+        return this.removeFromIndex(this.size - k);
+    }
+
+    // Remove even numbers
+    removeEvenNumbers() {
+        while (this.head && this.head.value % 2 === 0) {
+            this.head = this.head.next;
+            this.size--;
+        }
+        if (this.isEmpty()) return;
+        let curr = this.head;
+        while (curr.next) {
+            if (curr.next.value % 2 === 0) {
+                curr.next = curr.next.next;
+                this.size--;
+            } else {
+                curr = curr.next;
+            }
+        }
+    }
+
+    // Remove element by value (first occurrence)
+    removeElement(value) {
+        let curr = this.head;
+        let prev = null;
+        while (curr) {
+            if (curr.value === value) {
+                if (prev) {
+                    prev.next = curr.next;
+                } else {
+                    this.head = curr.next;
+                }
+                this.size--;
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+    }
+
+    // Remove duplicates from unsorted list
+    removeDuplicateFromUnsorted() {
+        let seen = new Set();
+        let curr = this.head;
+        let prev = null;
+        while (curr) {
+            if (seen.has(curr.value)) {
+                prev.next = curr.next;
+                this.size--;
+            } else {
+                seen.add(curr.value);
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+    }
+
+    // Remove all elements that have duplicates
+    removeDuplicatesWithAllElement() {
+        let map = new Map();
+        let curr = this.head;
+        while (curr) {
+            map.set(curr.value, (map.get(curr.value) || 0) + 1);
+            curr = curr.next;
+        }
+        let dummy = new Node(0);
+        dummy.next = this.head;
+        let prev = dummy;
+        curr = this.head;
+        while (curr) {
+            if (map.get(curr.value) > 1) {
+                prev.next = curr.next;
+                this.size--;
+            } else {
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        this.head = dummy.next;
+    }
+
+    // Search
     search(value) {
-        if (this.isEmpty()) {
-            return null
-        }
-        let curr = this.head
+        let curr = this.head;
         while (curr) {
-            if (curr.value == value) {
-                return true
-            }
-            curr = curr.next
+            if (curr.value === value) return true;
+            curr = curr.next;
         }
-        return false
-    }
-
-    secondSmallest() {
-        if (this.isEmpty()) return null
-        let small = Infinity;
-        let secSmall = Infinity;
-        let curr = this.head
-        while (curr) {
-            if (curr.value < small) {
-                secSmall = small
-                small = curr.value
-            } else if (secSmall > curr.value && curr.value !== small) {
-                secSmall = curr.value
-            }
-            curr = curr.next
-        }
-
-        return secSmall
+        return false;
     }
 
     searchByIndex(index) {
-        if (this.isEmpty() || index < 0 || index >= this.size) {
-            return null
-        }
+        const node = this._getNodeAt(index);
+        return node ? node.value : null;
+    }
 
-        let prev = this.head
+    // Helpers
+    _getNodeAt(index) {
+        if (index < 0 || index >= this.size) return null;
+        let curr = this.head;
         for (let i = 0; i < index; i++) {
-            prev = prev.next
+            curr = curr.next;
         }
-        return prev.value
+        return curr;
     }
 
-    removekthElementFromLast(k) {
-        if (this.isEmpty() || this.size < k || !Number.isInteger(k)) {
-            return -1
+    // Display
+    display() {
+        let values = [];
+        let curr = this.head;
+        while (curr) {
+            values.push(curr.value);
+            curr = curr.next;
         }
-
-        let fast = this.head
-        let slow = this.head
-        for (let index = 0; index < k; index++) {
-            fast = fast.next
-        }
-
-        while (fast) {
-            fast = fast.next
-            slow = slow.next
-        }
-        let removeValue = slow.next.value
-        slow.next = slow.next.next
-        this.size--
-        return removeValue
-
+        console.log(values.join(" --> "));
     }
 
-    removeEvenNumbers() {
-        if (this.isEmpty()) return null
-        while (this.head && this.head.value % 2 == 0) {
-            this.head = this.head.next
-            this.size--
+    // Reverse
+    reverse() {
+        let prev = null;
+        let curr = this.head;
+        while (curr) {
+            let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-        if (this.isEmpty()) return null
-        let prev = this.head
-        while (prev.next) {
-            if (prev.next.value % 2 == 0) {
-                prev.next = prev.next.next
-                this.size--
-            } else {
-                prev = prev.next
+        this.head = prev;
+    }
+
+    // Second smallest element
+    secondSmallest() {
+        if (this.size < 2) return null;
+        let small = Infinity, secSmall = Infinity;
+        let curr = this.head;
+        while (curr) {
+            if (curr.value < small) {
+                secSmall = small;
+                small = curr.value;
+            } else if (curr.value < secSmall && curr.value !== small) {
+                secSmall = curr.value;
             }
+            curr = curr.next;
         }
-        this.display()
+        return secSmall === Infinity ? null : secSmall;
     }
 
-    //linked list first two and last two sum
+    // Least occurrence value
+    leastOccurrence() {
+        if (this.isEmpty()) return null;
+        let map = new Map();
+        let curr = this.head;
+        while (curr) {
+            map.set(curr.value, (map.get(curr.value) || 0) + 1);
+            curr = curr.next;
+        }
+        let least = Math.min(...map.values());
+        return [...map.entries()].filter(([_, v]) => v === least).map(([k]) => k);
+    }
+
+    // Sum of first two and last two values
     sumOfTwoSideValues() {
-        if (this.isEmpty() || this.getSize() < 4) return
-        let curr = this.head
-        let collections = []
-        while (curr) {
-            collections.push(curr.value)
-            curr = curr.next
-        }
-
-        let sum = (collections[0] + collections[1]) + (collections[collections.length - 1] + collections[collections.length - 2])
-        return sum
+        if (this.size < 4) return null;
+        let arr = this.listToArray();
+        return (arr[0] + arr[1]) + (arr[arr.length - 1] + arr[arr.length - 2]);
     }
 
-    leastOccurance() {
-        let map = new Map()
-        let curr = this.head
-        while (curr) {
-            map.set(curr.value, (map.get(curr.value) || 0) + 1)
-            curr = curr.next
-        }
-
-        let least = Math.min(...map.values())
-
-        for (let [key, value] of map.entries()) {
-            if (least === value) {
-                return key
-            }
-        }
-    }
-
-    removeDuplicateFromUnsorted() {
-        let curr = this.head
-        let prev = null
-        let seen = new Set()
-        while (curr) {
-            if (seen.has(curr.value)) {
-                prev.next = curr.next
-                this.size--
-            } else {
-                seen.add(curr.value)
-                prev = curr
-            }
-            curr = curr.next
-        }
-    }
-
+    // Convert list to array
     listToArray() {
-        if (this.isEmpty()) return
-        let result = []
-        let curr = this.head
+        let result = [];
+        let curr = this.head;
         while (curr) {
-            result.push(curr.value)
-            curr = curr.next
+            result.push(curr.value);
+            curr = curr.next;
         }
-        return result
+        return result;
+    }
+
+    // Sorting (Merge Sort)
+    sort() {
+        this.head = this._mergeSort(this.head);
+    }
+
+    _mergeSort(head) {
+        if (!head || !head.next) return head;
+        let mid = this._getMiddle(head);
+        let right = mid.next;
+        mid.next = null;
+        let leftSorted = this._mergeSort(head);
+        let rightSorted = this._mergeSort(right);
+        return this._merge(leftSorted, rightSorted);
+    }
+
+    _merge(l1, l2) {
+        let dummy = new Node(0);
+        let curr = dummy;
+        while (l1 && l2) {
+            if (l1.value < l2.value) {
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        curr.next = l1 || l2;
+        return dummy.next;
     }
 
     _getMiddle(head) {
-        let slow = head;
-        let fast = head.next;
+        let slow = head, fast = head.next;
         while (fast && fast.next) {
             slow = slow.next;
             fast = fast.next.next;
@@ -275,160 +311,68 @@ class LinkedList {
         return slow;
     }
 
-    sort() {
-        this.head = this._mergeSort(this.head)
-    }
-
-    _mergeSort(head) {
-        if (!head || !head.next) return head;
-
-        let mid = this._getMiddle(head);
-        let right = mid.next;
-        mid.next = null; // split the list into two
-
-        const leftSorted = this._mergeSort(head);
-        const rightSorted = this._mergeSort(right);
-
-        return this._merge(leftSorted, rightSorted);
-    }
-
-    _merge(l1, l2) {
-        let dummy = new Node(0);
-        let current = dummy;
-
-        while (l1 && l2) {
-            if (l1.value < l2.value) {
-                current.next = l1;
-                l1 = l1.next;
-            } else {
-                current.next = l2;
-                l2 = l2.next;
-            }
-            current = current.next;
+    // Palindrome check
+    isPalindrome() {
+        if (!this.head || !this.head.next) return true;
+        let mid = this._getMiddle(this.head);
+        let secondHalf = this._reverseList(mid.next);
+        mid.next = null;
+        let p1 = this.head, p2 = secondHalf;
+        while (p2) {
+            if (p1.value !== p2.value) return false;
+            p1 = p1.next;
+            p2 = p2.next;
         }
-
-        current.next = l1 || l2;
-        return dummy.next;
+        return true;
     }
 
-    reverse() {
-        let prev = null
-        let curr = this.head
+    _reverseList(head) {
+        let prev = null, curr = head;
         while (curr) {
-            let next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
+            let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-        this.head = prev
+        return prev;
     }
 
-    removeElement(value) {
+    removeDuplicateFromLastPosition(dupElement) {
         let current = this.head
-        let prev = null
-        while (current) {
-            if (current.value == value) {
-                if (prev) {
-                    prev.next = current.next
-                } else {
-                    this.head = current.next
-                }
-            } else {
+        let prev = this.head
+        while (current && current.next) {
+            if (current.next.value == dupElement) {
                 prev = current
             }
             current = current.next
         }
+        prev.next = prev.next.next
+        this.size--
+        this.display()
     }
 
-    isPalindrom() {
-        // 0 and 1 value
-        if (!this.head || !this.head.next) return true
-
-        //getMiddle
-        let mid = this._getMiddle(this.head)
-        //reverse from middle
-        let secondHalfHead = this._getReverse(mid.next)
-        mid.next = null
-        //check palindrom
-        let firstHalf = this.head
-        let secondHalf = secondHalfHead
-        let isPalindrom = true
-        while (secondHalf) {
-            if (firstHalf.value !== secondHalf.value) {
-                isPalindrom = false
-                break;
-            }
-            firstHalf = firstHalf.next
-            secondHalf = secondHalf.next
-        }
-        return isPalindrom
-    }
-
-    _getReverse(head) {
-        let current = head
-        let prev = null
-        while (current) {
-            let next = current.next
-            current.next = prev
-            prev = current
-            current = next
-        }
-        return prev
-    }
-
-    removeDuplicatesWithAllElement() {
-        let seen = new Set()
-        let current = this.head
-        let prev = null
-        while (current) {
-            if (seen.has(current.value)) {
-                this.removeElement(current.value)
-            } else {
-                seen.add(current.value)
-                prev = current
-            }
-            current = current.next
-        }
-
-        this.printList()
-    }
-
+    // Cycle detection
     hasCycle() {
-        let fast = this.head
-        let slow = this.head
+        let fast = this.head, slow = this.head;
         while (fast && fast.next) {
-            slow = slow.next
-            fast = fast.next.next
-            if (slow === fast) {
-                return true
-            }
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow === fast) return true;
         }
-        return false
+        return false;
     }
 }
 
-let arr = [2, 4, 2, 3, 873, 534, 2, 4, 3, 4, 4, 7, 3, 24, 7, 35, 4]
-let list = new LinkedList()
-
-arr.forEach(item => list.append(item))
-list.display()
-
-console.log(list.searchByIndex(5))
-console.log(list.search(54))
-list.removeMiddle()
-list.display()
-list.reverse()
-list.display()
-console.log('Is this linkedlist has cycle:', list.hasCycle())
-console.log(list.removekthElementFromLast(3))
-list.display()
-
-console.log(list.secondSmallest())
-console.log(list.leastOccurance())
-
-console.log('The last and first 2 value sum is : ', list.sumOfTwoSideValues())
-const list2 = new LinkedList()
-let arr2 = [2, 3, 4, 4, 3, 2]
-arr2.forEach(item => list2.append(item))
-console.log(list2.isPalindrom())
-
+// Example usage
+let list = new LinkedList();
+[2, 4, 2, 3, 873, 534, 2, 4, 3, 4, 4, 7, 3, 24, 7, 35, 4].forEach(v => list.append(v));
+list.display();
+// console.log("Second smallest:", list.secondSmallest());
+// console.log("Least occurrence:", list.leastOccurrence());
+// list.removeMiddle();
+// list.display();
+// list.reverse();
+// list.display();
+// console.log("Is palindrome:", list.isPalindrome());
+// console.log("Sum of first 2 + last 2:", list.sumOfTwoSideValues());
+list.removeDuplicateFromLastPosition(3)

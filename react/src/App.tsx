@@ -2,6 +2,7 @@
 import "./App.css"
 import CounterUsingReducer from "./components/CounterUsingReducer"
 import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
+import InputButtonCompo from "./components/InputButtonCompo"
 import { PreventContext } from "./components/PreventContext"
 import ReverseAString from "./components/ReverseAString"
 import SignInComponentUsinguseRef from "./components/SignInComponentUsinguseRef"
@@ -18,15 +19,15 @@ import type { IFetchUser } from "./hooks/useFetchUser"
 
 
 const App = () => {
-  const { data, error, loading } = useFetch<IFetchUser[]>('https://my.api.mockaroo.com/users', { method: "GET", headers: { 'X-API-Key': "c1c53eb0" } })
+  // const { data, error, loading } = useFetch<IFetchUser[]>('https://my.api.mockaroo.com/users', { method: "GET", headers: { 'X-API-Key': "c1c53eb0" } })
 
-  if (loading) return <p>Loading....</p>
-  if (error) return <p style={{ color: 'red' }}>{error}</p>
+  // if (loading) return <p>Loading....</p>
+  // if (error) return <p style={{ color: 'red' }}>{error}</p>
 
-  console.log(data)
+  // console.log(data)
   return (
     <>
-      <EffectAndLayoutEffect />
+      {/* <EffectAndLayoutEffect />
       <ReverseAString />
       <CounterUsingReducer />
       <ToggleExample />
@@ -36,8 +37,9 @@ const App = () => {
         {data?.map((user: IFetchUser) => (
           <li key={user.id}>{user.first_name}</li>
         ))}
-      </ul>
-      <SignInComponentUsinguseRef />
+      </ul> */}
+      <InputButtonCompo />
+      {/* <SignInComponentUsinguseRef /> */}
     </>
   )
 }
