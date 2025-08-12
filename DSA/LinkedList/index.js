@@ -323,6 +323,36 @@ class LinkedList {
         this.head = prev
     }
 
+    removeElement(value) {
+        let current = this.head
+        let prev = null
+        while (current) {
+            if (current.value == value) {
+                prev.next = current.next
+            } else {
+                prev = current
+            }
+            current = current.next
+        }
+    }
+
+    removeDuplicatesWithAllElement() {
+        let seen = new Set()
+        let current = this.head
+        let prev = null
+        while (current) {
+            if (seen.has(current.value)) {
+                this.removeElement(current.value)
+            } else {
+                seen.add(current.value)
+                prev = current
+            }
+            current = current.next
+        }
+
+        this.printList()
+    }
+
     hasCycle() {
         let fast = this.head
         let slow = this.head
