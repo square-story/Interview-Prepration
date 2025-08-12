@@ -93,7 +93,7 @@ class LinkedList {
         let slow = this.head
         let prev = null
 
-        while (fast.next && fast) {
+        while (fast && fast.next) {
             prev = slow
             slow = slow.next
             fast = fast.next.next
@@ -173,7 +173,7 @@ class LinkedList {
 
         let fast = this.head
         let slow = this.head
-        for (let index = 0; index <= k; index++) {
+        for (let index = 0; index < k; index++) {
             fast = fast.next
         }
 
@@ -242,7 +242,7 @@ class LinkedList {
         let curr = this.head
         let prev = null
         let seen = new Set()
-        while (curr && curr.next) {
+        while (curr) {
             if (seen.has(curr.value)) {
                 prev.next = curr.next
                 this.size--
@@ -328,12 +328,52 @@ class LinkedList {
         let prev = null
         while (current) {
             if (current.value == value) {
-                prev.next = current.next
+                if (prev) {
+                    prev.next = current.next
+                } else {
+                    this.head = current.next
+                }
             } else {
                 prev = current
             }
             current = current.next
         }
+    }
+
+    isPalindrom() {
+        // 0 and 1 value
+        if (!this.head || !this.head.next) return true
+
+        //getMiddle
+        let mid = this._getMiddle(this.head)
+        //reverse from middle
+        let secondHalfHead = this._getReverse(mid.next)
+        mid.next = null
+        //check palindrom
+        let firstHalf = this.head
+        let secondHalf = secondHalfHead
+        let isPalindrom = true
+        while (secondHalf) {
+            if (firstHalf.value !== secondHalf.value) {
+                isPalindrom = false
+                break;
+            }
+            firstHalf = firstHalf.next
+            secondHalf = secondHalf.next
+        }
+        return isPalindrom
+    }
+
+    _getReverse(head) {
+        let current = head
+        let prev = null
+        while (current) {
+            let next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        }
+        return prev
     }
 
     removeDuplicatesWithAllElement() {
@@ -387,4 +427,8 @@ console.log(list.secondSmallest())
 console.log(list.leastOccurance())
 
 console.log('The last and first 2 value sum is : ', list.sumOfTwoSideValues())
+const list2 = new LinkedList()
+let arr2 = [2, 3, 4, 4, 3, 2]
+arr2.forEach(item => list2.append(item))
+console.log(list2.isPalindrom())
 
