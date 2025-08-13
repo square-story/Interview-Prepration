@@ -351,6 +351,28 @@ class LinkedList {
         this.display()
     }
 
+    sumOnlyMiddle10Elements() {
+        if (this.isEmpty() || this.size < 10) {
+            return 'not enough element in this linkedlist to perform the operation'
+        }
+
+        let skip = (this.size - 10) / 2
+        let current = this.head
+        let sum = 0
+
+        for (let i = 0; i < skip; i++) {
+            current = current.next
+        }
+
+        for (let i = 0; i < 10; i++) {
+            sum += current.value
+            current = current.next
+        }
+
+        return sum
+
+    }
+
     // Cycle detection
     hasCycle() {
         let fast = this.head, slow = this.head;
@@ -376,3 +398,4 @@ list.display();
 // console.log("Is palindrome:", list.isPalindrome());
 // console.log("Sum of first 2 + last 2:", list.sumOfTwoSideValues());
 list.removeDuplicateFromLastPosition(3)
+console.log(list.sumOnlyMiddle10Elements());
