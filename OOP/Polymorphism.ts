@@ -19,7 +19,12 @@ class CatExample extends AnimalPolymorphism {
     }
 }
 
-const animals: AnimalPolymorphism[] = [new DogExample(), new CatExample()];
-animals.forEach(animal => {
+function playSound(animal: AnimalPolymorphism): void {
     animal.makeSound();
-});
+}
+
+const myDog = new DogExample();
+const myCat = new CatExample();
+
+playSound(myDog); // Output: Bark
+playSound(myCat); // Output: Meow
