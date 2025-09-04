@@ -1,5 +1,8 @@
 const person = {
-    status: true
+    status: true,
+    greet: function () {
+        console.log('the called', this.status)
+    }
 }
 
 const details = {
@@ -9,6 +12,8 @@ const details = {
 
 console.log(details.status)
 console.log(details.__proto__)
+
+details.greet()
 
 
 //Constructor Functions & .prototype

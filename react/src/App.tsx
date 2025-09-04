@@ -1,15 +1,6 @@
 
 import "./App.css"
-import CounterUsingReducer from "./components/CounterUsingReducer"
-import EffectAndLayoutEffect from "./components/EffectAndLayoutEffect"
 import InputButtonCompo from "./components/InputButtonCompo"
-import { PreventContext } from "./components/PreventContext"
-import ReverseAString from "./components/ReverseAString"
-import SignInComponentUsinguseRef from "./components/SignInComponentUsinguseRef"
-import ToggleExample from "./components/ToggleExample"
-import { TurnCounter } from "./components/TurnCounter"
-import { useFetch } from "./hooks/useFetch"
-import type { IFetchUser } from "./hooks/useFetchUser"
 
 // type IUser = {
 //   id: number;
@@ -39,6 +30,7 @@ const App = () => {
         ))}
       </ul> */}
       <InputButtonCompo />
+      <input type="text" />
       {/* <SignInComponentUsinguseRef /> */}
     </>
   )

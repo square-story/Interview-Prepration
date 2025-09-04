@@ -23,3 +23,19 @@ function throttleFun(mainFunction, delay) {
         }
     }
 }
+
+const logMessage = () => {
+    console.log('function called', new Date().toISOString())
+}
+
+const something = throttleFun(logMessage, 1000)
+
+let count = 0
+
+let intervalId = setInterval(() => {
+    something()
+    count++
+    if (count > 10) {
+        clearInterval(intervalId)
+    }
+}, 100);

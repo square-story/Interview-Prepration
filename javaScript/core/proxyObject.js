@@ -6,7 +6,8 @@
 
 const target = {
     name: 'Sadik',
-    age: 25
+    age: 25,
+    ageGroup: 'adult'
 };
 
 const handler = {
@@ -16,10 +17,17 @@ const handler = {
     },
     set(target, prop, value) {
         console.log(`Property "${prop}" set to "${value}"`);
-        if (prop === 'age' && (typeof prop !== 'number' || value < 0)) {
+        if (prop === 'age' && (typeof value !== 'number' || value <= 0)) {
             throw new Error(`The ${prop} only contain Positive Number type`)
         }
 
+        if (prop === 'age') {
+            if (value >= 18) {
+                target['ageGroup'] = 'adult'
+            } else {
+                target['ageGroup'] = 'minor'
+            }
+        }
 
         target[prop] = value;
         return true;
@@ -29,9 +37,11 @@ const handler = {
 const proxy = new Proxy(target, handler);
 
 console.log(proxy.name);     // logs the get trap
-proxy.age = 30;
-proxy.age = 0;              // logs the set trap              // logs the set trap
+proxy.age = 14;
+// proxy.age = 0;      
 console.log(proxy.age);      // logs the get trap again
+
+console.log(proxy.ageGroup)
 
 
 /**

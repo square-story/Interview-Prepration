@@ -1,5 +1,5 @@
 //!What is Closure in Javascript?
-//?A function along with reference to its outer environment together forms a closure. Or in other words
+//?A function along with reference to its outer environment together forms a closure.
 
 function outer() {
     var a = 10;

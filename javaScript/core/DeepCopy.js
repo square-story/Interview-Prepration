@@ -4,7 +4,7 @@ function deepCopy(value) {
 
     let copied = {}
     for (const el in value) {
-        if (value.hasOwnProperty(el)) {
+        if (Object.hasOwn(value, el)) {
             copied[el] = deepCopy(value[el])
         }
     }

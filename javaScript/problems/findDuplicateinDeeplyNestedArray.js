@@ -9,8 +9,7 @@ function watchThis(arr) {
     for (let el of arr) {
         if (Array.isArray(el)) {
             let key = JSON.stringify(el)
-            if (seen.has(key)) seen.set(key, seen.get(key) + 1)
-            else seen.set(key, 1)
+            seen.set(key, (seen.get(key) || 0) + 1)
             watchThis(el)
         }
     }
