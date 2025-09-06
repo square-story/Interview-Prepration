@@ -5,6 +5,3 @@ click.addEventListener('click', e => {
     checkbox.checked = !checkbox.checked;
     console.log(e)
 })
-
-
-
