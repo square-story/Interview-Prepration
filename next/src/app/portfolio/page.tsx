@@ -1,77 +1,42 @@
 "use client"
 
-import { useState } from "react"
-import { Search, BookOpen, Code, Lightbulb, Star } from "lucide-react"
+import React, { useState } from "react"
+import { Search, Code } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { problems, categories, frameworks } from "@/lib/problems-data"
 
-const learningTopics = [
-  {
-    id: 1,
-    title: "React Hooks Fundamentals",
-    description: "Understanding useState, useEffect, and custom hooks",
-    category: "React Basics",
-    difficulty: "Beginner",
-    lastUpdated: "2024-01-15",
-    tags: ["hooks", "state", "effects"],
-    icon: <Code className="w-5 h-5" />,
-  },
-  {
-    id: 2,
-    title: "shadcn/ui Component Integration",
-    description: "How to properly install and customize shadcn/ui components",
-    category: "UI Components",
-    difficulty: "Intermediate",
-    lastUpdated: "2024-01-14",
-    tags: ["shadcn", "components", "styling"],
-    icon: <BookOpen className="w-5 h-5" />,
-  },
-  {
-    id: 3,
-    title: "React Context & State Management",
-    description: "Managing global state with Context API and Zustand",
-    category: "State Management",
-    difficulty: "Advanced",
-    lastUpdated: "2024-01-13",
-    tags: ["context", "state", "zustand"],
-    icon: <Lightbulb className="w-5 h-5" />,
-  },
-  {
-    id: 4,
-    title: "Form Handling with React Hook Form",
-    description: "Building robust forms with validation and error handling",
-    category: "Forms",
-    difficulty: "Intermediate",
-    lastUpdated: "2024-01-12",
-    tags: ["forms", "validation", "react-hook-form"],
-    icon: <Star className="w-5 h-5" />,
-  },
-]
-
-const categories = ["All", "React Basics", "UI Components", "State Management", "Forms", "Advanced Concepts"]
-
-export default function Component() {
+export default function PortfolioPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedFramework, setSelectedFramework] = useState("All")
 
-  const filteredTopics = learningTopics.filter((topic) => {
+  // Filter problems based on search term, category, and framework
+  const filteredProblems = problems.filter((problem) => {
     const matchesSearch =
-      topic.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      topic.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      topic.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-    const matchesCategory = selectedCategory === "All" || topic.category === selectedCategory
-    return matchesSearch && matchesCategory
+      problem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      problem.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      problem.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    
+    const matchesCategory = selectedCategory === "All" || problem.category === selectedCategory
+    const matchesFramework = selectedFramework === "All" || problem.framework === selectedFramework
+    
+    return matchesSearch && matchesCategory && matchesFramework
   })
 
+  // Get color based on difficulty
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
+      case "Easy":
       case "Beginner":
         return "bg-green-100 text-green-800"
+      case "Medium":
       case "Intermediate":
         return "bg-yellow-100 text-yellow-800"
+      case "Hard":
       case "Advanced":
         return "bg-red-100 text-red-800"
       default:
@@ -86,20 +51,15 @@ export default function Component() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <BookOpen className="w-8 h-8 text-blue-600 mr-3" />
+              <Code className="w-8 h-8 text-blue-600 mr-3" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">React Learning Docs</h1>
-                <p className="text-sm text-gray-600">My personal React & shadcn/ui documentation</p>
+                <h1 className="text-2xl font-bold text-gray-900">Coding Portfolio</h1>
+                <p className="text-sm text-gray-600">Showcase of solved problems across different frameworks and libraries</p>
               </div>
             </div>
-            <div className="flex gap-2">
-              <Button asChild variant="outline">
-                <Link href="/portfolio">View Portfolio</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/add-topic">Add New Topic</Link>
-              </Button>
-            </div>
+            <Button asChild>
+              <Link href="/">Back to Home</Link>
+            </Button>
           </div>
         </div>
       </header>
@@ -123,20 +83,34 @@ export default function Component() {
                 ))}
               </nav>
 
+              <h2 className="text-lg font-semibold mb-4 mt-8">Frameworks/Libraries</h2>
+              <nav className="space-y-2">
+                {frameworks.map((framework) => (
+                  <button
+                    key={framework}
+                    onClick={() => setSelectedFramework(framework)}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${selectedFramework === framework ? "bg-blue-100 text-blue-700" : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                  >
+                    {framework}
+                  </button>
+                ))}
+              </nav>
+
               <div className="mt-8">
                 <h3 className="text-sm font-medium text-gray-900 mb-3">Quick Stats</h3>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
-                    <span>Total Topics:</span>
-                    <span className="font-medium">{learningTopics.length}</span>
+                    <span>Total Problems:</span>
+                    <span className="font-medium">{problems.length}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Categories:</span>
                     <span className="font-medium">{categories.length - 1}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Last Updated:</span>
-                    <span className="font-medium">Today</span>
+                    <span>Frameworks:</span>
+                    <span className="font-medium">{frameworks.length - 1}</span>
                   </div>
                 </div>
               </div>
@@ -151,7 +125,7 @@ export default function Component() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
                   type="text"
-                  placeholder="Search topics, descriptions, or tags..."
+                  placeholder="Search problems, descriptions, or tags..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -159,35 +133,35 @@ export default function Component() {
               </div>
             </div>
 
-            {/* Topics Grid */}
+            {/* Problems Grid */}
             <div className="grid gap-6 md:grid-cols-2">
-              {filteredTopics.map((topic) => (
-                <Card key={topic.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+              {filteredProblems.map((problem) => (
+                <Card key={problem.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2">
-                        {topic.icon}
-                        <CardTitle className="text-lg">{topic.title}</CardTitle>
+                        {React.createElement(problem.icon, { className: "w-5 h-5" })}
+                        <CardTitle className="text-lg">{problem.title}</CardTitle>
                       </div>
-                      <Badge className={getDifficultyColor(topic.difficulty)}>{topic.difficulty}</Badge>
+                      <Badge className={getDifficultyColor(problem.difficulty)}>{problem.difficulty}</Badge>
                     </div>
-                    <CardDescription>{topic.description}</CardDescription>
+                    <CardDescription>{problem.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-sm text-gray-500">
-                        <span>Category: {topic.category}</span>
-                        <span>Updated: {topic.lastUpdated}</span>
+                        <span>Category: {problem.category}</span>
+                        <span>Framework: {problem.framework}</span>
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {topic.tags.map((tag) => (
+                        {problem.tags.map((tag) => (
                           <Badge key={tag} variant="secondary" className="text-xs">
                             {tag}
                           </Badge>
                         ))}
                       </div>
                       <Button variant="outline" size="sm" className="w-full">
-                        <Link href={`/topic/${topic.id}`}>View Topic</Link>
+                        <Link href={`/portfolio/problem/${problem.id}`}>View Solution</Link>
                       </Button>
                     </div>
                   </CardContent>
@@ -195,10 +169,10 @@ export default function Component() {
               ))}
             </div>
 
-            {filteredTopics.length === 0 && (
+            {filteredProblems.length === 0 && (
               <div className="text-center py-12">
-                <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No topics found</h3>
+                <Code className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No problems found</h3>
                 <p className="text-gray-600">Try adjusting your search or category filter.</p>
               </div>
             )}
