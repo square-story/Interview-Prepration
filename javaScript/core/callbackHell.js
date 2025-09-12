@@ -14,7 +14,6 @@ function multipleOfTwo(value, callback) {
 sumOfTwo(6, function (value) {
     multipleOfTwo(value, function (value) {
         console.log(value)
-        console.log('done');
     })
 })
 
