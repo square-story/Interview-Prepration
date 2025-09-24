@@ -1,6 +1,6 @@
 
 import "./App.css"
-import InputButtonCompo from "./components/InputButtonCompo"
+import ReRender from "./components/ReRender"
 
 // type IUser = {
 //   id: number;
@@ -11,7 +11,6 @@ import InputButtonCompo from "./components/InputButtonCompo"
 
 const App = () => {
   // const { data, error, loading } = useFetch<IFetchUser[]>('https://my.api.mockaroo.com/users', { method: "GET", headers: { 'X-API-Key': "c1c53eb0" } })
-
   // if (loading) return <p>Loading....</p>
   // if (error) return <p style={{ color: 'red' }}>{error}</p>
 
@@ -29,8 +28,7 @@ const App = () => {
           <li key={user.id}>{user.first_name}</li>
         ))}
       </ul> */}
-      <InputButtonCompo />
-      <input type="text" />
+      <ReRender />
       {/* <SignInComponentUsinguseRef /> */}
     </>
   )
