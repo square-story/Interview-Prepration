@@ -1,6 +1,6 @@
 
 import "./App.css"
-import ReRender from "./components/ReRender"
+import { FindRepeating } from "./components/FindRepeating"
 
 // type IUser = {
 //   id: number;
@@ -28,7 +28,7 @@ const App = () => {
           <li key={user.id}>{user.first_name}</li>
         ))}
       </ul> */}
-      <ReRender />
+      <FindRepeating />
       {/* <SignInComponentUsinguseRef /> */}
     </>
   )
