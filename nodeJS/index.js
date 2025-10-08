@@ -1,17 +1,9 @@
-const linkedIn = require('linkedin-jobs-api');
+const express = require('express');
 
-const queryOptions = {
-    keyword: 'Mern stack developer',
-    location: 'India',
-    dateSincePosted: 'past Week',
-    jobType: 'full time',
-    remoteFilter: 'full time',
-    salary: '100000',
-    experienceLevel: 'entry level',
-    limit: '10',
-    page: "0",
-};
+const app = express()
 
-linkedIn.query(queryOptions).then(response => {
-    console.log(response);
-});
+app.get('/', (req, res) => res.json('something'))
+
+app.listen(3000, () => {
+    console.log('hello')
+})
