@@ -1,16 +1,7 @@
-import { createWriteStream, stat } from 'fs'
+import fs from 'fs'
+const writeStream = fs.createWriteStream('output.txt');
 
-const write = createWriteStream('./text.txt', 'utf8')
-
-write.write('hello.js')
-write.write('\nnee poda')
-
-stat('./text.txt', (err, data) => {
-    if (err) {
-        console.log('something', err)
-    }
-    console.log("🚀 ~ data.isDirectory():", data.isDirectory())
-})
-
-write.on('finish', () => console.log('ended 💦'))
-
+writeStream.write('Hello ');
+writeStream.write('World!');
+writeStream.end();
+writeStream.on('finish', () => console.log('Write complete'));
