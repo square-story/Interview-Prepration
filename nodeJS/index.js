@@ -67,7 +67,7 @@ app.get('/write-append', async (req, res, next) => {
         const date = new Date()
         await fs.appendFile('./something.txt', '\n' + date.toISOString(), { encoding: 'utf-8' })
         console.log(await fs.stat('./something.txt'))
-        res.status(200).send(date)
+        res.status(200).json({ success: true, message: 'Date appended to file', date: date });
     } catch (error) {
         next(error)
     }
