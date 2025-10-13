@@ -14,7 +14,15 @@ app.get('/', (req, res, next) => {
         next(error)
     }
 })
-
+//app.all example
+app.all('/all-route', (req, res, next) => {
+    try {
+        console.log(req.method, req.url, req.accepts)
+        res.status(200).json('yes i got it', req.method)
+    } catch (error) {
+        next(error)
+    }
+})
 //example of app.set for setting creation
 app.set("port", 3000)
 
