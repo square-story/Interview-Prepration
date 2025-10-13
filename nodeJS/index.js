@@ -1,9 +1,16 @@
 import express from 'express'
 import fs from 'fs/promises'
+import fsSync from 'fs'
+import { join } from 'path'
 
 const app = express()
 
 app.use(express.json())
+
+const readPath = join('.', 'something.txt');
+const outPath = join('.', 'output.txt');
+
+console.log(readPath, outPath)
 
 //example of sync file reading.
 app.get('/', (req, res, next) => {
@@ -45,6 +52,33 @@ app.get('/divide/:a', (req, res, next) => {
         if (isNaN(numberA) || isNaN(numberB)) return res.status(400).json({ success: false, message: 'need an number types in the input value' })
         if (numberB <= 0) return res.status(400).json({ success: false, message: 'Cannot divide by zero' });
         res.status(200).json({ success: true, data: numberA / numberB })
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.get('/read-stream', async (req, res, next) => {
+    try {
+        if (!fsSync.existsSync(readPath)) {
+            return res.status(400).json({ success: false, message: 'not existed' })
+        }
+
+        const readStream = fsSync.createReadStream(readPath, 'utf-8')
+        res.setHeader('Content-Type', 'text/plain')
+        readStream.pipe(res)
+    } catch (error) {
+        next(error)
+    }
+})
+
+app.post('/write-stream', express.text(), async (req, res, next) => {
+    try {
+        const { data } = req.body
+        console.log(data)
+        const writeStream = fsSync.createWriteStream(outPath)
+        writeStream.write(data)
+        writeStream.end()
+        writeStream.on('finish', () => res.send('Data written to file successfully!'))
     } catch (error) {
         next(error)
     }
