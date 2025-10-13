@@ -1,20 +1,42 @@
 import express from 'express'
-import { EventEmitter } from 'events'
+import fs from 'fs'
+
 const app = express()
 
-app.get('/', (req, res) => res.json('something'))
+app.use(express.json())
 
-
-const event = new EventEmitter()
-
-app.get('/user', (req, res) => res.status(200).json('getting user data'))
-
-event.on('greet', (name) => {
-    console.log('hello', name)
+app.get('/', (req, res, next) => {
+    try {
+        const data = fs.readFileSync('./Routes/userRoute.js', 'utf-8')
+        res.status(200).json({ success: true, data })
+    } catch (error) {
+        next(error)
+    }
 })
 
-event.emit('greet', 'sadik')
+app.set("port", 3000)
 
-app.listen(3000, () => {
-    console.log('hello')
+//division API
+app.get('/divide/:a', (req, res, next) => {
+    try {
+        const { a } = req.params
+        const { b } = req.query
+
+        if (!a || !b) return res.status(400).json({ success: false, message: "need path value and query value" })
+
+        const numberA = Number(a)
+        const numberB = Number(b)
+        if (isNaN(numberA) || isNaN(numberB)) return res.status(400).json({ success: false, message: 'need an number types in the input value' })
+        if (numberB <= 0) return res.status(400).json({ success: false, message: 'Cannot divide by zero' });
+        res.status(200).json({ success: true, data: numberA / numberB })
+    } catch (error) {
+        next(error)
+    }
 })
+
+app.use((err, req, res, next) => {
+    console.log('The error from error handling middlware', err)
+    res.status(500).json({ sucess: false, message: "internal server error" })
+})
+
+app.listen(app.get("port"), () => console.log(`server started at ${app.get("port")} port`))
