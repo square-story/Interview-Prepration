@@ -1,5 +1,5 @@
 import express from 'express'
-import fs from 'fs'
+import fs from 'fs/promises'
 
 const app = express()
 
@@ -50,11 +50,34 @@ app.get('/divide/:a', (req, res, next) => {
     }
 })
 
+//Write date in the something.txt
+app.get('/write-date', async (req, res, next) => {
+    try {
+        const data = new Date()
+        await fs.writeFile('./something.txt', data.toISOString(), { encoding: 'utf-8' })
+        res.status(200).json(data)
+    } catch (error) {
+        next(error)
+    }
+})
+
+//write append example
+app.get('/write-append', async (req, res, next) => {
+    try {
+        const date = new Date()
+        await fs.appendFile('./something.txt', '\n' + date.toISOString(), { encoding: 'utf-8' })
+        console.log(await fs.stat('./something.txt'))
+        res.status(200).send(date)
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 //example of error handiling middleware.
 app.use((err, req, res, next) => {
     console.log('The error from error handling middlware', err)
-    res.status(500).json({ sucess: false, message: "internal server error" })
+    res.status(500).json({ sucess: false, message: err.message || "internal server error" })
 })
 
 app.listen(app.get("port"), () => console.log(`server started at ${app.get("port")} port`))
