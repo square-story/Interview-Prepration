@@ -5,6 +5,7 @@ const app = express()
 
 app.use(express.json())
 
+//example of sync file reading.
 app.get('/', (req, res, next) => {
     try {
         const data = fs.readFileSync('./Routes/userRoute.js', 'utf-8')
@@ -14,7 +15,14 @@ app.get('/', (req, res, next) => {
     }
 })
 
+//example of app.set for setting creation
 app.set("port", 3000)
+
+//example of router chaining.
+
+app.route('/routerchain')
+    .get((req, res) => res.status(200).json({ success: true, message: 'yess done' }))
+    .post((req, res) => res.status(201).json({ success: true, message: "created the file" }))
 
 //division API
 app.get('/divide/:a', (req, res, next) => {
@@ -34,6 +42,8 @@ app.get('/divide/:a', (req, res, next) => {
     }
 })
 
+
+//example of error handiling middleware.
 app.use((err, req, res, next) => {
     console.log('The error from error handling middlware', err)
     res.status(500).json({ sucess: false, message: "internal server error" })
