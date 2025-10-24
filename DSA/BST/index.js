@@ -32,12 +32,14 @@ class BinarySearchTree {
             } else {
                 this.insertNode(root.left, newNode)
             }
-        } else {
+        } else if (newNode.value > root.value) {
             if (root.right === null) {
                 root.right = newNode
             } else {
                 this.insertNode(root.right, newNode)
             }
+        } else {
+            return
         }
     }
 
@@ -47,6 +49,10 @@ class BinarySearchTree {
         } else {
             if (root.value === value) {
                 return true
+            } else if (value > root.value) {
+                return this.search(root.right, value)
+            } else {
+                return this.search(root.left, value)
             }
         }
     }
@@ -106,6 +112,15 @@ class BinarySearchTree {
         return root
     }
 
+    isBST(root = this.root, min = -Infinity, max = Infinity) {
+        if (!root) return true;
+        if (root.value <= min || root.value >= max) return false;
+        return (
+            this.isBST(root.left, min, root.value) &&
+            this.isBST(root.right, root.value, max)
+        );
+    }
+
     levelOrder() {
         let queue = [];
         queue.push(this.root);
@@ -126,16 +141,21 @@ class BinarySearchTree {
     }
 }
 
-const bst = new BinarySearchTree()
-let arr = [2, 4, 2, 4, 44, 5, 6, 8]
-arr.forEach(item => bst.insert(item))
-bst.inOrder()
-bst.preOrder()
-bst.postOrder()
-bst.levelOrder()
-console.log('something')
-console.log(bst.min())
-console.log(bst.max())
-bst.delete(44)
-console.log("after");
-bst.inOrder()
+const bst = new BinarySearchTree();
+[2, 4, 2, 4, 44, 5, 6, 8].forEach(v => bst.insert(v));
+
+console.log("InOrder:");
+bst.inOrder();
+console.log("PreOrder:");
+bst.preOrder();
+console.log("PostOrder:");
+bst.postOrder();
+console.log("LevelOrder:");
+bst.levelOrder();
+
+console.log("Min:", bst.min());
+console.log("Max:", bst.max());
+bst.delete(44);
+console.log("After deleting 44:");
+bst.inOrder();
+console.log("isBST:", bst.isBST());
