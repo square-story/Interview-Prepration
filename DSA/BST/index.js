@@ -139,6 +139,34 @@ class BinarySearchTree {
         if (!root.right) return root.value
         else return this.max(root.right)
     }
+
+    findHeight(root = this.root) {
+        if (!root) return -1
+        let left = this.findHeight(root.left)
+        let right = this.findHeight(root.right)
+        return Math.max(left, right) + 1
+    }
+    countNodes(root = this.root) {
+        if (!root) return 0
+        let left = this.countNodes(root.left)
+        let right = this.countNodes(root.right)
+
+        return left + right + 1
+    }
+    countLeafNodes(root = this.root) {
+        if (!root) return 0
+        if (!root.right && !root.left) return 1
+        return (this.countLeafNodes(root.left) + this.countLeafNodes(root.right))
+    }
+    depthOfANode(value, root = this.root, count = 0) {
+        if (!root) return count
+        if (root.value === value) return count
+        if (value > root.value) {
+            return this.depthOfANode(value, root.right, count + 1)
+        } else {
+            return this.depthOfANode(value, root.left, count + 1)
+        }
+    }
 }
 
 const bst = new BinarySearchTree();
@@ -157,5 +185,9 @@ console.log("Min:", bst.min());
 console.log("Max:", bst.max());
 bst.delete(44);
 console.log("After deleting 44:");
-bst.inOrder();
+bst.levelOrder();
 console.log("isBST:", bst.isBST());
+console.log('The length of the BST is:', bst.findHeight())
+console.log('the total count nodes:', bst.countNodes())
+console.log('the total leaf nodes:', bst.countLeafNodes())
+console.log('the depth of the 5 is:', bst.depthOfANode(5))
