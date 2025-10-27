@@ -37,7 +37,7 @@ class Trie {
         return currentNode.isEndOfWord === true
     }
 
-    startWithPrefix(prefix) {
+    startsWith(prefix) {
         let currentNode = this.root;
         for (let char of prefix) {
             if (!currentNode.children[char]) {
@@ -49,8 +49,12 @@ class Trie {
     }
 }
 
+const myTrie = new Trie();
+myTrie.insert("apple");
+myTrie.insert("apricot");
+myTrie.insert("banana");
 
-const something = new Trie()
-something.insert('something')
-console.log(something.search('some'))
-console.log(something.startWithPrefix('some'))
+console.log(myTrie.search("apple"));    // true
+console.log(myTrie.search("app"));      // false (unless explicitly inserted)
+console.log(myTrie.startsWith("app"));  // true
+console.log(myTrie.search("orange"));   // false
