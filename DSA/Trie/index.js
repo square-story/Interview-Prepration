@@ -47,6 +47,25 @@ class Trie {
         }
         return true
     }
+
+
+    delete(word, root = this.root, depth = 0) {
+        if (!root) return false
+        if (depth === word.length) {
+            if (!root.isEndOfWord) return false
+            root.isEndOfWord = false
+            return Object.keys(root.children).length === 0
+        }
+        let char = word[depth]
+        if (!root.children[char]) return false
+
+        let shouldDelete = this.delete(word, root.children[char], depth + 1)
+        if (shouldDelete) {
+            delete root.children[char]
+            return !root.isEndOfWord && Object.keys(root.children).length === 0
+        }
+        return false
+    }
 }
 
 const myTrie = new Trie();
@@ -58,3 +77,6 @@ console.log(myTrie.search("apple"));    // true
 console.log(myTrie.search("app"));      // false (unless explicitly inserted)
 console.log(myTrie.startsWith("app"));  // true
 console.log(myTrie.search("orange"));   // false
+console.log(myTrie.delete("apple")) //true "deleting the apple"
+console.log("Deleting 'apple':", myTrie.delete("apple")); // true
+console.log("Search for 'apple' after deletion:", myTrie.search("apple")); // false
