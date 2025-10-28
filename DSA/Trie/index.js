@@ -66,6 +66,7 @@ class Trie {
         }
         return false
     }
+
 }
 
 const myTrie = new Trie();
@@ -78,5 +79,5 @@ console.log(myTrie.search("app"));      // false (unless explicitly inserted)
 console.log(myTrie.startsWith("app"));  // true
 console.log(myTrie.search("orange"));   // false
 console.log(myTrie.delete("apple")) //true "deleting the apple"
-console.log("Deleting 'apple':", myTrie.delete("apple")); // true
+myTrie.delete("apple")
 console.log("Search for 'apple' after deletion:", myTrie.search("apple")); // false
