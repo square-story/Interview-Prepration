@@ -56,34 +56,33 @@ class MaxHeap {
 
     extractMax() {
         if (!this.heap.length) return null
-        if (this.heap.length === 1) return this.heap[0]
+        if (this.heap.length === 1) return this.heap.pop()
         let value = this.heap[0]
         this.heap[0] = this.heap.pop()
         this.heapifyDown()
         return value
     }
 
-    heapifyUp() {
-        let currentIndex = this.heap.length - 1;
-        while (this.hasParent(currentIndex) && this.getParent(currentIndex) < this.heap[currentIndex]) {
-            this.swap(this.getParentIndex(currentIndex), currentIndex)
-            currentIndex = this.getParentIndex(currentIndex);
+    heapifyUp(i = this.heap.length - 1) {
+        if (this.hasParent(i) && this.getParent(i) < this.heap[i]) {
+            this.swap(this.getParentIndex(i), i)
+            this.heapifyUp(this.getParentIndex(i))
         }
     }
 
-    heapifyDown() {
-        let currentIndex = 0;
-        while (this.hasLeftChild(currentIndex)) {
-            let largeChildIndex = this.getLeftChildIndex(currentIndex)
-            if (this.hasRightChild(currentIndex) && this.getRightChild(currentIndex) > this.getLeftChild(currentIndex)) {
-                largeChildIndex = this.getRightChildIndex(currentIndex)
-            }
-            if (this.heap[currentIndex] >= this.heap[largeChildIndex]) {
-                break;
-            } else {
-                this.swap(currentIndex, largeChildIndex)
-            }
-            currentIndex = largeChildIndex
+    heapifyDown(i = 0) {
+        let largestIndex = i
+        let right = this.getRightChildIndex(i)
+        let left = this.getLeftChildIndex(i)
+        if (this.hasLeftChild(i) && this.getLeftChild(i) > this.heap[largestIndex]) {
+            largestIndex = left
+        }
+        if (this.hasRightChild(i) && this.getRightChild(i) > this.heap[largestIndex]) {
+            largestIndex = right
+        }
+        if (i !== largestIndex) {
+            this.swap(i, largestIndex)
+            this.heapifyDown(largestIndex)
         }
     }
 }
@@ -97,3 +96,4 @@ arr.forEach(element => {
 });
 
 console.log(heap.extractMax())
+console.log(heap.getPeek())
