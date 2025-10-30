@@ -73,7 +73,7 @@ class Graph {
         if (!this.adjacencyList[start]) return null
         visted.add(start)
         console.log(start)
-        for (let el in this.adjacencyList) {
+        for (let el of this.adjacencyList[start]) {
             if (!visted.has(el)) {
                 this.dfsRecursion(el, visted)
             }
