@@ -167,10 +167,26 @@ class BinarySearchTree {
             return this.depthOfANode(value, root.left, count + 1)
         }
     }
+    kthSmallest(k, root = this.root) {
+        const stack = []
+        let current = root
+        while (current || stack.length > 0) {
+            while (current) {
+                stack.push(current)
+                current = current.left
+            }
+
+            current = stack.pop()
+            k--
+
+            if (k === 0) return current.value
+            current = current.right
+        }
+    }
 }
 
 const bst = new BinarySearchTree();
-[2, 4, 2, 4, 44, 5, 6, 8].forEach(v => bst.insert(v));
+[4, 44, 2, 4, 2, 6, 5, 8].forEach(v => bst.insert(v));
 
 console.log("InOrder:");
 bst.inOrder();
@@ -190,4 +206,7 @@ console.log("isBST:", bst.isBST());
 console.log('The length of the BST is:', bst.findHeight())
 console.log('the total count nodes:', bst.countNodes())
 console.log('the total leaf nodes:', bst.countLeafNodes())
-console.log('the depth of the 5 is:', bst.depthOfANode(5))
+console.log('the depth of the 5 is:', bst.depthOfANode(4))
+console.log('--the second smallest element--:', bst.kthSmallest(2))
+console.log('--for confirmation smallest: Inorder--')
+bst.inOrder()
