@@ -96,6 +96,29 @@ class Graph {
         }
     }
 
+    hasCycle() {
+        const visted = new Set()
+        const dfs = (vertex, parent) => {
+            visted.add(vertex)
+            for (let neigbour of this.adjacencyList[vertex]) {
+                if (!visted.has(neigbour)) {
+                    if (dfs(neigbour, vertex)) return true
+                } else if (neigbour !== parent) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        //need to check all the component
+        for (let vertex in this.adjacencyList) {
+            if (!visted.has(vertex)) {
+                if (dfs(vertex, null)) return true
+            }
+        }
+        return false
+    }
+
     display() {
         for (let el in this.adjacencyList) {
             console.log(el, "-->", [...this.adjacencyList[el]])
@@ -118,6 +141,8 @@ console.log(graph.getNeigbour("B"))
 console.log('---Display---')
 graph.display()
 console.log('----DFS----')
-graph.dfsRecursion('A')
+graph.dfs('A')
 console.log('---BFS---')
 graph.bfs("A")
+console.log('---Has cycle in the Graph---:', graph.hasCycle())
+
