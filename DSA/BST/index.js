@@ -189,7 +189,7 @@ class BinarySearchTree {
         while (current || stack.length) {
             while (current) {
                 stack.push(current)
-                current.right
+                current = current.right
             }
 
             current = stack.pop()
