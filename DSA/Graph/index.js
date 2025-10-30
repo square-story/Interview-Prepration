@@ -69,13 +69,13 @@ class Graph {
         return this.adjacencyList[vertex].size
     }
 
-    dfsRecursion(start, visted = new Set()) {
+    dfs(start, visted = new Set()) {
         if (!this.adjacencyList[start]) return null
         visted.add(start)
         console.log(start)
         for (let el of this.adjacencyList[start]) {
             if (!visted.has(el)) {
-                this.dfsRecursion(el, visted)
+                this.dfs(el, visted)
             }
         }
     }
