@@ -90,6 +90,18 @@ class Trie {
         }
     }
 
+    longestCommonPrefix() {
+        let prefix = ""
+        let current = this.root
+
+        while (current && !current.isEndOfWord && Object.keys(current.children).length === 1) {
+            const [char] = Object.keys(current.children)
+            prefix += char
+            current = current.children[char]
+        }
+
+        return prefix
+    }
 }
 
 const myTrie = new Trie();
@@ -106,4 +118,9 @@ console.log(myTrie.search("orange"));   // false
 console.log(myTrie.delete("apple")) //true "deleting the apple"
 myTrie.delete("apple")
 console.log("Search for 'apple' after deletion:", myTrie.search("apple")); // false
-console.log('--autosuggestion--:', myTrie.autoSuggestion('b'))
+console.log('--autosuggestion--:', myTrie.autoSuggestion('a'))
+
+const trie = new Trie();
+const words = ["flower", "flow", "flight"];
+words.forEach(word => trie.insert(word));
+console.log('--longest common prefix::', trie.longestCommonPrefix()); // "fl"
