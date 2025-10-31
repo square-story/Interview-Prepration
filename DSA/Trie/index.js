@@ -67,17 +67,43 @@ class Trie {
         return false
     }
 
+    autoSuggestion(prefix) {
+        let current = this.root
+        for (let el of prefix) {
+            if (!current.children[el]) {
+                return []
+            }
+            current = current.children[el]
+        }
+        let suggestions = []
+        this._dfs(suggestions, prefix, current)
+        return suggestions
+    }
+
+    _dfs(suggestions, prefix, node) {
+        if (node.isEndOfWord) {
+            suggestions.push(prefix)
+        }
+
+        for (let el in node.children) {
+            this._dfs(suggestions, prefix + el, node.children[el])
+        }
+    }
+
 }
 
 const myTrie = new Trie();
 myTrie.insert("apple");
 myTrie.insert("apricot");
 myTrie.insert("banana");
+myTrie.insert("apply")
 
 console.log(myTrie.search("apple"));    // true
 console.log(myTrie.search("app"));      // false (unless explicitly inserted)
+
 console.log(myTrie.startsWith("app"));  // true
 console.log(myTrie.search("orange"));   // false
 console.log(myTrie.delete("apple")) //true "deleting the apple"
 myTrie.delete("apple")
 console.log("Search for 'apple' after deletion:", myTrie.search("apple")); // false
+console.log('--autosuggestion--:', myTrie.autoSuggestion('b'))
