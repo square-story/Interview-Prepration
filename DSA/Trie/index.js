@@ -20,7 +20,6 @@ class Trie {
             if (!currentNode.children[char]) {
                 currentNode.children[char] = new TrieNode()
             }
-
             currentNode = currentNode.children[char]
         }
         currentNode.isEndOfWord = true

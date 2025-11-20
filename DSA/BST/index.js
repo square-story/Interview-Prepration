@@ -144,8 +144,7 @@ class BinarySearchTree {
     }
 
     levelOrder() {
-        let queue = [];
-        queue.push(this.root);
+        let queue = [this.root]
         while (queue.length > 0) {
             let current = queue.shift();
             console.log(current.value);
