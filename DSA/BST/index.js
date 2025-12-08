@@ -121,9 +121,30 @@ class BinarySearchTree {
         );
     }
 
+    findDegree(value) {
+        let node = this.findNode(value)
+        if (node) {
+            let degree = (node.right ? 1 : 0) + (node.left ? 1 : 0)
+            return degree
+        }
+        return null
+    }
+
+    findNode(value, root = this.root) {
+        if (!root) return null
+        else {
+            if (root.value === value) {
+                return root
+            } else if (root.value > value) {
+                return this.findNode(value, root.left)
+            } else {
+                return this.findNode(value, root.right)
+            }
+        }
+    }
+
     levelOrder() {
-        let queue = [];
-        queue.push(this.root);
+        let queue = [this.root]
         while (queue.length > 0) {
             let current = queue.shift();
             console.log(current.value);
@@ -228,3 +249,5 @@ console.log('--the second smallest element--:', bst.kthSmallest(2))
 console.log('--for confirmation smallest: Inorder--')
 bst.inOrder()
 console.log('---2th largest element:--', bst.kThLargest(2))
+
+console.log('Degree of 6:', bst.findDegree(6))
