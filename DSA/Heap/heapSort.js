@@ -1,45 +1,45 @@
-function heapSort(students, key) {
-    const n = students.length;
+/**
+ * 
+ * @param {number[]} arr 
+ * @param {number} i 
+ * @param {number} n 
+ */
+function heapify(arr, i, n) {
+    let minIndex = i
+    let left = 2 * i + 1
+    let right = 2 * i + 2
 
-    // Build max heap
-    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-        heapify(students, n, i, key);
+    if (n > left && arr[left] > arr[minIndex]) {
+        minIndex = left
     }
 
-    // Extract elements from heap one by one
+    if (n > right && arr[right] > arr[minIndex]) {
+        minIndex = right
+    }
+
+    if (minIndex !== i) {
+        [arr[minIndex], arr[i]] = [arr[i], arr[minIndex]]
+        heapify(arr, minIndex, n)
+    }
+}
+
+/**
+ * 
+ * @param {number[]} arr 
+ */
+function heapSort(arr) {
+    let n = arr.length
+    let leaf = Math.floor(n / 2) - 1
+    for (let i = leaf; i >= 0; i--) {
+        heapify(arr, i, n)
+    }
+
     for (let i = n - 1; i > 0; i--) {
-        [students[0], students[i]] = [students[i], students[0]]; // swap
-        heapify(students, i, 0, key);
+        [arr[0], arr[i]] = [arr[i], arr[0]]
+        heapify(arr, 0, i)
     }
 
-    return students;
+    return arr
 }
 
-function heapify(arr, n, i, key) {
-    let largest = i;
-    const left = 2 * i + 1;
-    const right = 2 * i + 2;
-
-    if (left < n && arr[left][key] > arr[largest][key]) {
-        largest = left;
-    }
-
-    if (right < n && arr[right][key] > arr[largest][key]) {
-        largest = right;
-    }
-
-    if (largest !== i) {
-        [arr[i], arr[largest]] = [arr[largest], arr[i]];
-        heapify(arr, n, largest, key);
-    }
-}
-
-// Example usage:
-const students = [
-    { name: "Alice", score: 88 },
-    { name: "Bob", score: 75 },
-    { name: "Charlie", score: 95 },
-    { name: "David", score: 82 }
-];
-
-console.log(heapSort(students, "score"));
+console.log(heapSort([3, 7, 2, 4, 6, 3, 2, 7, 84, 3]))
