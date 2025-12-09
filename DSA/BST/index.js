@@ -112,6 +112,39 @@ class BinarySearchTree {
         return root
     }
 
+    findClosestValueRecursive(target, root = this.root, closest = null) {
+        if (!root) return closest
+        if (closest === null || Math.abs(target - closest) > Math.abs(target - root.value)) {
+            closest = root.value
+        }
+        if (target < root.value) {
+            return this.findClosestValueRecursive(target, root.left, closest)
+        } else if (target > root.value) {
+            return this.findClosestValueRecursive(target, root.right, closest)
+        } else {
+            return closest
+        }
+    }
+
+    findClosestValueItrative(target, current = this.root) {
+        if (!current) return null
+        let closest = current.value
+        while (current) {
+            if (Math.abs(current.value - target) < Math.abs(closest - target)) {
+                closest = current.value
+            }
+
+            if (target > current.value) {
+                current = current.right
+            } else if (target < current.value) {
+                current = current.left
+            } else {
+                return current.value
+            }
+        }
+        return closest
+    }
+
     isBST(root = this.root, min = -Infinity, max = Infinity) {
         if (!root) return true;
         if (root.value <= min || root.value >= max) return false;
@@ -251,3 +284,5 @@ bst.inOrder()
 console.log('---2th largest element:--', bst.kThLargest(2))
 
 console.log('Degree of 6:', bst.findDegree(6))
+console.log('Closest of 7:', bst.findClosestValueItrative(7))
+console.log('Closest of 7:', bst.findClosestValueRecursive(7))
