@@ -200,6 +200,14 @@ class BinarySearchTree {
         let right = this.findHeight(root.right)
         return Math.max(left, right) + 1
     }
+
+    isPerfectBinaryTree(root = this.root) {
+        if (!root) return true
+        let countNode = this.countNodes()
+        let HeightOf = this.findHeight()
+        return countNode === Math.pow(2, HeightOf + 1) - 1
+    }
+
     countNodes(root = this.root) {
         if (!root) return 0
         let left = this.countNodes(root.left)
@@ -286,3 +294,8 @@ console.log('---2th largest element:--', bst.kThLargest(2))
 console.log('Degree of 6:', bst.findDegree(6))
 console.log('Closest of 7:', bst.findClosestValueItrative(7))
 console.log('Closest of 7:', bst.findClosestValueRecursive(7))
+console.log('is this perfect:', bst.isPerfectBinaryTree())
+
+const perfectBST = new BinarySearchTree();
+[4, 2, 6, 1, 3, 5, 7].forEach(v => perfectBST.insert(v));
+console.log('Is perfect tree :', perfectBST.isPerfectBinaryTree());
