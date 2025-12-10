@@ -229,6 +229,17 @@ class BinarySearchTree {
             return this.depthOfANode(value, root.left, count + 1)
         }
     }
+
+    isBalanced(root = this.root) {
+        if (!root) return true
+        const leftHeight = this.findHeight(root.left)
+        const rightHeight = this.findHeight(root.right)
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return false
+        }
+        return (this.isBalanced(root.left) && this.isBalanced(root.right))
+    }
+
     kthSmallest(k, root = this.root) {
         const stack = []
         let current = root
@@ -295,7 +306,10 @@ console.log('Degree of 6:', bst.findDegree(6))
 console.log('Closest of 7:', bst.findClosestValueItrative(7))
 console.log('Closest of 7:', bst.findClosestValueRecursive(7))
 console.log('is this perfect:', bst.isPerfectBinaryTree())
+console.log('Is Balanced tree :', bst.isBalanced());
 
 const perfectBST = new BinarySearchTree();
 [4, 2, 6, 1, 3, 5, 7].forEach(v => perfectBST.insert(v));
 console.log('Is perfect tree :', perfectBST.isPerfectBinaryTree());
+console.log('Is Balanced tree :', perfectBST.isBalanced());
+
