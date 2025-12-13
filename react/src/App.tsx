@@ -1,6 +1,7 @@
 
 import "./App.css"
-import { FindRepeating } from "./components/FindRepeating"
+import Navbar from "./components/NavBar"
+
 
 // type IUser = {
 //   id: number;
@@ -10,27 +11,13 @@ import { FindRepeating } from "./components/FindRepeating"
 
 
 const App = () => {
-  // const { data, error, loading } = useFetch<IFetchUser[]>('https://my.api.mockaroo.com/users', { method: "GET", headers: { 'X-API-Key': "c1c53eb0" } })
-  // if (loading) return <p>Loading....</p>
-  // if (error) return <p style={{ color: 'red' }}>{error}</p>
-
-  // console.log(data)
   return (
-    <>
-      {/* <EffectAndLayoutEffect />
-      <ReverseAString />
-      <CounterUsingReducer />
-      <ToggleExample />
-      <PreventContext />
-      <TurnCounter />
-      <ul>
-        {data?.map((user: IFetchUser) => (
-          <li key={user.id}>{user.first_name}</li>
-        ))}
-      </ul> */}
-      <FindRepeating />
-      {/* <SignInComponentUsinguseRef /> */}
-    </>
+    <main className="App">
+      <Navbar />
+      <h1>Welcome to Themed Application</h1>
+      <p>This application allows you to switch between light and dark themes.</p>
+      <p>Click the button in the navbar to toggle the theme.</p>
+    </main>
   )
 }
 

@@ -10,7 +10,6 @@ const Timer = () => {
             timerId = setInterval(() => {
                 setTimer(prev => prev + 1)
             }, 1000);
-
         }
         return () => clearInterval(timerId)
     }, [isRunning])
