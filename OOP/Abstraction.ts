@@ -6,12 +6,12 @@ abstract class Shape {
 }
 
 class Circle extends Shape {
-    constructor(private radius: number) {
-        super();
+    constructor(public area: number) {
+        super()
     }
 
-    public getArea(): number {
-        return Math.PI * this.radius * this.radius;
+    getArea(): number {
+        return this.area * 1020
     }
 }
 

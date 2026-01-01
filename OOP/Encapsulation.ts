@@ -14,6 +14,15 @@ class Animal {
         return this.name;
     }
 
+    public getAge(): number {
+        return this.age
+    }
+
+    setAge(age: number): void {
+        if (age < 18) throw new Error('need to 18 to set the profile.')
+        this.age = age;
+    }
+
     public setName(name: string): void {
         this.name = name;
     }
