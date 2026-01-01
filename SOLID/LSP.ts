@@ -1,5 +1,7 @@
-//LSP means a subclass must be usable wherever its parent is expected.
-
+//LSP means
+//objects of a superclass (parent class) should be replaceable 
+// by objects of its subclasses (child classes) 
+// without breaking the program's correctness
 /*
 **bad example**
 
