@@ -6,3 +6,14 @@ const checkPalindrome = (str) => {
 }
 
 console.log(checkPalindrome("oLlo"))
+
+
+function checkPalindrom(str, i = 0) {
+    if (i >= str.length / 2) return true
+    if (str[i] !== str[str.length - 1 - i]) {
+        return false
+    }
+    return checkPalindrom(str, i + 1)
+}
+
+console.log(checkPalindrom("oLlo"))

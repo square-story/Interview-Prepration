@@ -30,3 +30,13 @@ const getFib = (n) => {
 }
 
 console.log(printFib(20))
+
+const FibSequence = (num) => {
+    let fact = [0, 1]
+    for (let i = 2; i <= num; i++) {
+        fact[fact.length] = fact[i - 2] + fact[i + -1]
+    }
+    return fact
+}
+
+console.log(FibSequence(5))
