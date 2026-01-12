@@ -1,4 +1,5 @@
 import { stat } from 'fs/promises'
+import path from 'path';
 //import {stat} from "fs"
 
 // stat('../cluster.js', (err, data) => {
@@ -14,6 +15,6 @@ import { stat } from 'fs/promises'
 
 
 (async () => {
-    const stats = await stat('../no-cluster.js');
+    const stats = await stat(path.join('.', 'something.txt'));
     console.log(stats.isFile(), stats.size);
 })()

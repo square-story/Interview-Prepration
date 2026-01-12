@@ -2,7 +2,7 @@ let arr = require('../problems/randomArray')
 
 console.log('the Orginal Array:', arr)
 
-Array.prototype.myFilter = function (callback, intialValue) {
+Array.prototype.myFilter = function (callback, thisArg) {
     if (typeof callback !== 'function') throw new TypeError(callback + "is not function")
     const arr = this
     const length = arr.length
@@ -10,12 +10,11 @@ Array.prototype.myFilter = function (callback, intialValue) {
     for (let i = 0; i < length; i++) {
         if (i in arr) {
             const value = arr[i]
-            if (callback.call(intialValue, value, i, arr)) {
+            if (callback.call(thisArg, value, i, arr)) {
                 result.push(value)
             }
         }
     }
-
     return result
 }
 

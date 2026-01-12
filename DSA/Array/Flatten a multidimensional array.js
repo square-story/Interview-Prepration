@@ -11,3 +11,24 @@ function flattern(arr) {
 }
 
 console.log(flattern(arr))
+
+/**
+ * 
+ * @param {number[]} arr 
+ * @returns {number[]}
+ */
+function flatternWithInbuild(arr) {
+    let result = []
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+            let nestedArr = flatternWithInbuild(arr[i])
+            for (let j = 0; j < nestedArr.length; j++) {
+                result[result.length] = nestedArr[j]
+            }
+        } else {
+            result[result.length] = arr[i]
+        }
+    }
+    return result
+}
+console.log(flatternWithInbuild(arr))

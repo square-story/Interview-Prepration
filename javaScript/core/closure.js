@@ -10,7 +10,7 @@ function outer() {
 }
 outer()(); // 10 
 
-//? over here first `()` will return inner function and then using secong `()` to call inner function
+//? over here first `()` will return inner function and then using second `()` to call inner function
 
 //! (with closures) -> put everything into a function
 function counter() {
