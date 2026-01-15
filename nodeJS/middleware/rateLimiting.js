@@ -1,4 +1,3 @@
-import { Router } from 'express'
 const rateLimitingStore = new Map()
 const RATELIMIT = 5
 const WINDOW_TIME = 60 * 1000;//1 minute

@@ -119,6 +119,22 @@ class Graph {
         return false
     }
 
+    cloneDFS(start) {
+        let clone = new Graph()
+        let visited = new Set()
+        const dfs = (start) => {
+            visited.add(start)
+            for (let neighbour of this.adjacencyList[start]) {
+                clone.addEdges(start, neighbour)
+                if (!visited.has(neighbour)) {
+                    dfs(neighbour)
+                }
+            }
+        }
+        dfs(start)
+        return clone
+    }
+
     display() {
         for (let el in this.adjacencyList) {
             console.log(el, "-->", [...this.adjacencyList[el]])
@@ -145,4 +161,8 @@ graph.dfs('A')
 console.log('---BFS---')
 graph.bfs("A")
 console.log('---Has cycle in the Graph---:', graph.hasCycle())
+
+const cloneVersion = graph.cloneDFS("A")
+console.log('---Cloned version dfs---')
+cloneVersion.dfs('A')
 
