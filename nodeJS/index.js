@@ -2,10 +2,17 @@ import express from 'express'
 import fs from 'fs/promises'
 import fsSync from 'fs'
 import { join } from 'path'
-
+import Logger from './event/logger.js'
+const logger = new Logger()
 const app = express()
 
 app.use(express.json())
+
+try {
+    throw new Error('error happend when start time')
+} catch (err) {
+    logger.emit('error', err)
+}
 
 const readPath = join('.', 'something.txt');
 const outPath = join('.', 'output.txt');
