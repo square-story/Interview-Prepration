@@ -1,34 +1,32 @@
-let arr = [2, 45, [3, 5, 3, [6, 3], 3, [6, 43, 6, 3, [5]], 3], 4]
+// let arr = [2, 45, [3, 5, 3, [6, 3], 3, [6, 43, 6, 3, [5]], 3], 4]
 
-function flattern(arr) {
-    return arr.reduce((acc, curr) => {
-        if (Array.isArray(curr)) {
-            return acc.concat(flattern(curr))
-        } else {
-            return acc.concat(curr)
-        }
-    }, [])
-}
+// function flattern(arr) {
+//     return arr.reduce((acc, curr) => {
+//         if (Array.isArray(curr)) {
+//             return acc.concat(flattern(curr))
+//         } else {
+//             return acc.concat(curr)
+//         }
+//     }, [])
+// }
 
-console.log(flattern(arr))
+// console.log(flattern(arr))
 
-/**
- * 
- * @param {number[]} arr 
- * @returns {number[]}
- */
-function flatternWithInbuild(arr) {
-    let result = []
-    for (let i = 0; i < arr.length; i++) {
-        if (Array.isArray(arr[i])) {
-            let nestedArr = flatternWithInbuild(arr[i])
-            for (let j = 0; j < nestedArr.length; j++) {
-                result[result.length] = nestedArr[j]
+const arr1 = [1, [2, 3], [4, [5, 6]], 7];
+
+const flattern = function (arr, result = []) {
+    for (let el of arr) {
+        if (Array.isArray(el)) {
+            let nestedArr = flattern(el)
+            for (let el of nestedArr) {
+                result[result.length] = el
             }
         } else {
-            result[result.length] = arr[i]
+            result[result.length] = el
         }
     }
     return result
 }
-console.log(flatternWithInbuild(arr))
+
+const newArr = flattern(arr1)
+console.log(newArr)
