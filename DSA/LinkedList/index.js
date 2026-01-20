@@ -46,6 +46,26 @@ class LinkedList {
         this.size++;
     }
 
+    removeNthNodeFromEnd(n) {
+        if (n > this.size || n < 0 || this.isEmpty()) return null
+        let fast = this.head
+        let slow = this.head
+        for (let i = 0; i < n; i++) {
+            fast = fast.next
+        }
+        let prev = null
+        while (fast) {
+            prev = slow
+            slow = slow.next
+            fast = fast.next
+        }
+        if (prev) {
+            prev.next = slow.next
+            this.size--
+        }
+
+    }
+
     // Remove by index
     removeFromIndex(index) {
         if (index < 0 || index >= this.size || this.isEmpty()) return null;
