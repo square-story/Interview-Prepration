@@ -1,28 +1,30 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
-export const TurnCounter = () => {
-    const [turn, setTurn] = useState(false)
-    const [count, setCount] = useState(0)
-    const timerRef = useRef(null)
+const TurnCounter = () => {
+    const [timer, setTimer] = useState(0)
+    const [turn, setTurn] = useState(true)
 
     useEffect(() => {
-        timerRef.current = setInterval(() => {
-            setCount(prev => turn ? prev - 1 : prev + 1)
-        }, 1000);
-        return () => clearInterval(timerRef.current)
+        const interval = setInterval(() => {
+            setTimer(prev => {
+                if (prev >= 10) {
+                    setTurn(false)
+                    return prev - 1
+                }
+
+                if (prev <= 0) {
+                    setTurn(true)
+                    return prev + 1
+                }
+
+                return turn ? prev + 1 : prev - 1
+            })
+        }, 1000)
+
+        return () => clearInterval(interval)
     }, [turn])
 
-    useEffect(() => {
-        if (count <= 0) {
-            setTurn(false)
-        } else if (count >= 10) {
-            setTurn(true)
-        }
-    }, [count])
-
-    return (
-        <>
-            <h1>{count}</h1>
-        </>
-    )
+    return <h1>{timer}</h1>
 }
+
+export default TurnCounter

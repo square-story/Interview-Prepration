@@ -1,7 +1,6 @@
 import "./App.css"
 import Navbar from "./components/NavBar"
-import ErrorBoundary from "./class/ErrorBoundary"
-import BuggyComp from "./components/BuggyComp"
+import ScrollTrigger from "./components/ScrollTrigger"
 
 
 // type IUser = {
@@ -16,9 +15,7 @@ const App = () => {
   return (
     <main className="App">
       <Navbar />
-      <ErrorBoundary>
-        <BuggyComp />
-      </ErrorBoundary>
+      <ScrollTrigger />
     </main>
   )
 }
