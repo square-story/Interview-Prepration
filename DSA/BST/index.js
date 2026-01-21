@@ -208,6 +208,22 @@ class BinarySearchTree {
         return countNode === Math.pow(2, HeightOf + 1) - 1
     }
 
+    isSameTree(bst1, bst2) {
+        if (!bst1 && !bst2) {
+            return true
+        }
+        if (!bst1 || !bst2) {
+            return false
+        }
+        if (bst1.value !== bst2.value) {
+            return false
+        }
+
+        return (
+            this.isSameTree(bst1.left, bst2.left) && this.isSameTree(bst1.right, bst2.right)
+        )
+    }
+
     countNodes(root = this.root) {
         if (!root) return 0
         let left = this.countNodes(root.left)
@@ -312,4 +328,9 @@ const perfectBST = new BinarySearchTree();
 [4, 2, 6, 1, 3, 5, 7].forEach(v => perfectBST.insert(v));
 console.log('Is perfect tree :', perfectBST.isPerfectBinaryTree());
 console.log('Is Balanced tree :', perfectBST.isBalanced());
+const bst1 = new BinarySearchTree()
+const bst2 = new BinarySearchTree()
+    ;[5, 3, 6, 2, 3].forEach(item => bst1.insert(item))
+    ;[5, 3, 6, 2, 3].forEach(item => bst2.insert(item))
+console.log('is this same tree:', bst1.isSameTree(bst1, bst2))
 
