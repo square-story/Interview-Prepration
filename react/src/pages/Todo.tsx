@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { ITodos } from "../types/todos";
 
-export const Todo = () => {
+const Todo = () => {
     const [todos, setTodos] = useState<ITodos[]>([]);
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -48,3 +48,6 @@ export const Todo = () => {
         </>
     )
 }
+
+
+export default React.memo(Todo)

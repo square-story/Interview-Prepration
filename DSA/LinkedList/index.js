@@ -331,6 +331,28 @@ class LinkedList {
         return slow;
     }
 
+    mergeTwoSortedLinkedList(left, right) {
+        let dummy = new Node(0)
+        let current = dummy
+        left = left.head
+        right = right.head
+        while (left && right) {
+            if (left.value < right.value) {
+                current.next = left
+                left = left.next
+            } else {
+                current.next = right
+                right = right.next
+            }
+            current = current.next
+        }
+
+        current.next = left || right
+        const newList = new LinkedList()
+        newList.head = dummy.next
+        return newList
+    }
+
     // Palindrome check
     isPalindrome() {
         if (!this.head || !this.head.next) return true;
