@@ -415,6 +415,31 @@ class LinkedList {
 
     }
 
+    rotateList(k) {
+        if (k <= 0 || k >= this.size || !this.head) {
+            return null
+        }
+
+        k = k % this.size
+        let current = this.head
+        let count = 1
+        while (count < this.size - k) {
+            current = current.next
+            count++
+        }
+
+        let newHead = current.next
+        current.next = null
+
+        let tail = newHead
+        while (tail.next) {
+            tail = tail.next
+        }
+
+        tail.next = this.head
+        this.head = newHead
+    }
+
     // Cycle detection
     hasCycle() {
         let fast = this.head, slow = this.head;
@@ -429,7 +454,7 @@ class LinkedList {
 
 // Example usage
 let list = new LinkedList();
-[2, 4, 2, 3, 873, 534, 2, 4, 3, 4, 4, 7, 3, 24, 7, 35, 4].forEach(v => list.append(v));
+[1, 2, 3, 4, 5].forEach(v => list.append(v));
 list.display();
 // console.log("Second smallest:", list.secondSmallest());
 // console.log("Least occurrence:", list.leastOccurrence());
@@ -439,5 +464,8 @@ list.display();
 // list.display();
 // console.log("Is palindrome:", list.isPalindrome());
 // console.log("Sum of first 2 + last 2:", list.sumOfTwoSideValues());
-list.removeDuplicateFromLastPosition(3)
-console.log(list.sumOnlyMiddle10Elements());
+// list.removeDuplicateFromLastPosition(3)
+// console.log(list.sumOnlyMiddle10Elements());
+
+list.rotateList(2)
+list.display()

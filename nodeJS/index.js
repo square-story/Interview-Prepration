@@ -118,6 +118,7 @@ app.get('/write-append', async (req, res, next) => {
 //example of error handiling middleware.
 app.use((err, req, res, next) => {
     console.log('The error from error handling middlware', err)
+    logger.emit('error', err)
     res.status(500).json({ sucess: false, message: err.message || "internal server error" })
 })
 
