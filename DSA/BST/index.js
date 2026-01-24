@@ -112,6 +112,19 @@ class BinarySearchTree {
         return root
     }
 
+    sumOfNodes(root = this.root, sum = 0) {
+        return !root ? 0 : root.value + this.sumOfNodes(root.left) + this.sumOfNodes(root.right)
+    }
+
+    isFull(root = this.root) {
+        if (!root) return true
+        if (root.right && !root.left || root.left && !root.right) {
+            return false
+        }
+
+        return (this.isFull(root.left) && this.isFull(root.right))
+    }
+
     findClosestValueRecursive(target, root = this.root, closest = null) {
         if (!root) return closest
         if (closest === null || Math.abs(target - closest) > Math.abs(target - root.value)) {
