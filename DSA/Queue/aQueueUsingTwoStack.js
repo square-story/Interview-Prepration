@@ -1,68 +1,103 @@
-class Stack {
-    constructor() {
-        this.items = []
-    }
-
-    push(value) {
-        this.items.push(value)
-    }
-
-    getSize() {
-        return this.items.length
-    }
-
-    isEmpty() {
-        return this.items.length === 0
-    }
-
-    pop() {
-        return this.items.pop()
-    }
-
-    peek() {
-        return this.items[this.items.length - 1]
-    }
-
-    print() {
-        return [...this.items.slice()].join('-->')
+class Node {
+    constructor(value) {
+        this.value = value
+        this.next = null
     }
 }
 
-
 class Queue {
     constructor() {
-        this.input = new Stack()
-        this.output = new Stack()
+        this.head = null
+        this.size = 0
     }
 
     enqueue(value) {
-        this.input.push(value)
+        let node = new Node(value)
+        let current = this.head
+        if (!current) {
+            this.head = node
+        } else {
+            while (current.next) {
+                current = current.next
+            }
+            current.next = node
+        }
+        this.size++
+    }
+
+    getSize() {
+        return this.size
+    }
+
+    isEmpty() {
+        return this.size === 0
     }
 
     dequeue() {
-        this.suffle()
-        if (this.output.isEmpty()) return "Queue UnderFlow"
-        return this.output.pop()
-    }
-
-    suffle() {
-        if (this.output.isEmpty()) {
-            while (!this.input.isEmpty()) {
-                this.output.push(this.input.pop())
-            }
+        if (this.head) {
+            let removeValue = this.head.value
+            this.head = this.head.next
+            this.size--
+            return removeValue
         }
+        return null
     }
 
     peek() {
-        this.suffle()
-        if (this.output.isEmpty()) return "Queue UnderFlow"
-        return this.output.peek()
+        if (this.head) {
+            return this.head.value
+        }
+
+        return null
     }
 
-    print() {
-        let outputArr = [...this.output.items].reverse()
-        let inputArr = [...this.input.items]
-        return [...outputArr, ...inputArr].join('-->')
+    display() {
+        if (this.head) {
+            let value = ""
+            let current = this.head
+            while (current) {
+                value += current.value + '-->'
+                current = current.next
+            }
+            console.log(value)
+        }
+    }
+}
+
+class StackUsingTwoQueue {
+    constructor() {
+        this.input = new Queue()
+        this.output = new Queue()
+    }
+
+    push(value) {
+        this.input.enqueue(value)
+    }
+
+    pop() {
+        while (this.input.getSize() > 1) {
+            this.output.enqueue(this.input.dequeue())
+        }
+        let removeValue = this.input.dequeue()
+        let temp = this.input
+        this.input = this.output
+        this.output = temp
+        return removeValue
+    }
+
+    peek() {
+        while (!this.input.isEmpty()) {
+            this.output.enqueue(this.input.dequeue())
+        }
+        let top = this.input.dequeue()
+        this.output.enqueue(top)
+
+        // swap queues
+        let temp = this.input
+        this.input = this.output
+        this.output = temp
+
+        return top
     }
 }
 
@@ -71,8 +106,8 @@ const queue = new Queue()
 
 const arr = [2, 43, 53, 2, 234, 3].forEach(items => queue.enqueue(items))
 
-console.log(queue.print())
+queue.display()
 console.log("The Peek is:", queue.peek())
 console.log("The Remove Value:", queue.dequeue())
-
-console.log('After Removing the value queue:', queue.print())
+console.log('after removing the value:')
+queue.display()
