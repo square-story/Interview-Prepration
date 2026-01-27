@@ -84,6 +84,20 @@ class BinarySearchTree {
         this.root = this.deleteNode(this.root, value)
     }
 
+    insertSortedArr(arr) {
+        this.root = this._sortedArrayToBST(arr)
+        return this.root
+    }
+
+    _sortedArrayToBST(arr, left = 0, right = arr.length - 1) {
+        if (left > right) return null
+        let middle = Math.floor((left + right) / 2)
+        let node = new Node(arr[middle])
+        node.left = this._sortedArrayToBST(arr, left, middle - 1)
+        node.right = this._sortedArrayToBST(arr, middle + 1, right)
+        return node
+    }
+
     deleteNode(root, value) {
         if (root === null) {
             return null
@@ -112,7 +126,7 @@ class BinarySearchTree {
         return root
     }
 
-    sumOfNodes(root = this.root, sum = 0) {
+    sumOfNodes(root = this.root) {
         return !root ? 0 : root.value + this.sumOfNodes(root.left) + this.sumOfNodes(root.right)
     }
 
