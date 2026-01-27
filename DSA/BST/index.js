@@ -98,6 +98,18 @@ class BinarySearchTree {
         return node
     }
 
+    lowestCommonAncestor(p, q, root = this.root) {
+        if (!root) return null
+
+        if (p < root.value && q < root.value) {
+            return this.lowestCommonAncestor(p, q, root.left)
+        }
+        if (p > root.value && q > root.value) {
+            return this.lowestCommonAncestor(p, q, root.right)
+        }
+        return root.value
+    }
+
     deleteNode(root, value) {
         if (root === null) {
             return null
@@ -360,4 +372,4 @@ const bst2 = new BinarySearchTree()
     ;[5, 3, 6, 2, 3].forEach(item => bst1.insert(item))
     ;[5, 3, 6, 2, 3].forEach(item => bst2.insert(item))
 console.log('is this same tree:', bst1.isSameTree(bst1, bst2))
-
+console.log('Lowest common ancestor of 2,5 is :', bst.lowestCommonAncestor(2, 5))
