@@ -469,3 +469,35 @@ list.display();
 
 list.rotateList(2)
 list.display()
+
+let list1 = new LinkedList()
+let list2 = new LinkedList()
+    ;[1, 2, 3].forEach(item => list1.append(item))
+    ;[4, 5, 6].forEach(item => list2.append(item))
+
+list1.display()
+list2.display()
+
+function merge(left, right) {
+    let dummy = new Node(0)
+    let current = dummy
+    while (left && right) {
+        if (left.value > right.value) {
+            current.next = right
+            right = right.next
+        } else {
+            current.next = left
+            left = left.next
+        }
+        current = current.next
+    }
+
+    current.next = left || right
+
+    let newList = new LinkedList()
+    newList.head = dummy.next
+    return newList
+}
+
+const mergeList = merge(list1.head, list2.head)
+mergeList.display()

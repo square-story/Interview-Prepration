@@ -124,6 +124,7 @@ class Graph {
         let visited = new Set()
         const dfs = (start) => {
             visited.add(start)
+            clone.addVertex(start)
             for (let neighbour of this.adjacencyList[start]) {
                 clone.addEdges(start, neighbour)
                 if (!visited.has(neighbour)) {
