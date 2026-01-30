@@ -84,6 +84,17 @@ class DoubleLinkedList {
         }
         console.log(value)
     }
+
+    reverse() {
+        let current = this.head
+        while (current) {
+            let temp = current.prev
+            current.prev = current.next
+            current.next = temp
+            current = current.prev
+        }
+        [this.head, this.tail] = [this.tail, this.head]
+    }
 }
 
 let list = new DoubleLinkedList()
@@ -106,3 +117,6 @@ list.displayForward()
 list.removeFromStart()
 list.displayForward()
 // 10 <-> 20
+
+list.reverse()
+list.displayForward()
