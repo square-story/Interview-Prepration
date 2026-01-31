@@ -285,6 +285,23 @@ class BinarySearchTree {
         }
     }
 
+    isComplete(root = this.root) {
+        if (!root) return true
+        let queue = [root]
+        let seenNull = false
+        while (queue.length) {
+            let current = queue.shift()
+            if (current === null) {
+                seenNull = true
+            } else {
+                if (seenNull) return false
+                queue.push(current.left)
+                queue.push(current.right)
+            }
+        }
+        return true
+    }
+
     isBalanced(root = this.root) {
         if (!root) return true
         const leftHeight = this.findHeight(root.left)
@@ -373,3 +390,4 @@ const bst2 = new BinarySearchTree()
     ;[5, 3, 6, 2, 3].forEach(item => bst2.insert(item))
 console.log('is this same tree:', bst1.isSameTree(bst1, bst2))
 console.log('Lowest common ancestor of 2,5 is :', bst.lowestCommonAncestor(2, 5))
+console.log('bst1 is complete?:', bst1.isComplete())
