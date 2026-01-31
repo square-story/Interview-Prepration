@@ -27,6 +27,10 @@ class MinHeap {
         return this.getRightIndex(i) < this.heap.length
     }
 
+    swap(i, j) {
+        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]]
+    }
+
     getParent(i) {
         return this.heap[this.getParentIndex(i)]
     }
@@ -39,52 +43,48 @@ class MinHeap {
         return this.heap[this.getRightIndex(i)]
     }
 
-    swap(i, j) {
-        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]]
-    }
-
     insert(value) {
-        this.heap.push(value)
-        this.heapifyUp(this.heap.length - 1)
+        this.heap[this.heap.length] = value
+        this.heapifyUP()
     }
 
-    heapifyUp(i) {
-        if (this.hasParent(i) && this.getParent(i) > this.heap[i]) {
-            this.swap(this.getParentIndex(i), i)
-            this.heapifyUp(this.getParentIndex(i))
-        }
+    extractMin() {
+        if (!this.heap.length) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        let removeValue = this.heap[0]
+        this.heap[0] = this.heap.pop()
+        this.heapifyDown()
+        return removeValue
     }
 
-    heapifyDown(i) {
-        let smallest = i
-        let leftIndex = this.getLeftIndex(i)
-        let rightIndex = this.getLeftIndex(i)
-        if (this.hasLeft(i) && this.getLeft(i) > this.heap[smallest]) {
-            smallest = leftIndex
+    heapifyDown(i = 0) {
+        let smallest = i;
+        if (this.hasLeft(i) && this.getLeft(i) < this.heap[smallest]) {
+            smallest = this.getLeftIndex(i)
         }
-
-        if (this.hasRight(i) && this.getRight(i) > this.heap[smallest]) {
-            smallest = rightIndex
+        if (this.hasRight(i) && this.getRight(i) < this.heap[smallest]) {
+            smallest = this.getRightIndex(i)
         }
-
         if (smallest !== i) {
             this.swap(i, smallest)
             this.heapifyDown(smallest)
         }
     }
 
-    extractMin() {
-        let removeValue = this.heap[0]
-        this.heap[0] = this.heap.pop()
-        this.heapifyDown(0)
-        return removeValue
+    heapifyUP(i = this.heap.length - 1) {
+        if (this.hasParent(i) && this.getParent(i) > this.heap[i]) {
+            this.swap(this.getParentIndex(i), i)
+            this.heapifyUP(this.getParentIndex(i))
+        }
     }
 }
 
-const arr = [24, 2, 5, 42, 63, 5]
-const minHeap = new MinHeap()
-arr.forEach(item => minHeap.insert(item))
-console.log(minHeap.extractMin())
-console.log(minHeap.extractMin())
-console.log(minHeap.extractMin())
-console.log(minHeap.heap)
+const arr = [29, 4, 5, 67, 3, 36]
+const min = new MinHeap()
+arr.forEach(item => min.insert(item))
+console.log(min.heap)
+console.log(min.extractMin())
+console.log(min.extractMin())
+console.log(min.extractMin())
+console.log(min.extractMin())
+console.log(min.heap)

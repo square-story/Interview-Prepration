@@ -415,6 +415,23 @@ class LinkedList {
 
     }
 
+    removeEvenDuplicates() {
+        let seen = new Set()
+        let current = this.head
+        let prev = null
+        while (current) {
+            if (current.value % 2 == 0 && seen.has(current.value)) {
+                prev.next = current.next
+            } else {
+                if (current.value % 2 == 0) {
+                    seen.add(current.value)
+                }
+                prev = current
+            }
+            current = current.next
+        }
+    }
+
     rotateList(k) {
         if (k <= 0 || k >= this.size || !this.head) {
             return null
