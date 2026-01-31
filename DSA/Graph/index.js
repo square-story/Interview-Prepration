@@ -33,7 +33,7 @@ class Graph {
     removeVertex(vertex) {
         if (!this.adjacencyList[vertex]) return null
         for (let adjacency of this.adjacencyList[vertex]) {
-            this.removeEdge(adjacency, this.adjacencyList[vertex])
+            this.removeEdge(vertex, adjacency)
         }
         delete this.adjacencyList[vertex]
     }

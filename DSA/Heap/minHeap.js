@@ -88,3 +88,20 @@ console.log(min.extractMin())
 console.log(min.extractMin())
 console.log(min.extractMin())
 console.log(min.heap)
+
+const arr2 = [12, 4, 6, 43, 6, 3]
+function kthLargest(arr, k) {
+    const heap = new MinHeap()
+    for (let el of arr) {
+        heap.insert(el)
+        if (heap.heap.length > k) {
+            heap.extractMin()
+        }
+    }
+    return heap.heap[0]
+}
+
+console.log('---The Kth Largest---')
+console.log(kthLargest(arr2, 1)) // 43
+console.log(kthLargest(arr2, 2)) // 12
+console.log(kthLargest(arr2, 3)) // 6
