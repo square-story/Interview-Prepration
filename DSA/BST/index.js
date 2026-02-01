@@ -285,6 +285,25 @@ class BinarySearchTree {
         }
     }
 
+    sumOfLeftLeafNodes(root = this.root) {
+        if (!root) return 0;
+        let sum = 0
+        if (root.left && !root.left.right && !root.left.left) {
+            sum += root.left.value
+        }
+        sum += this.sumOfLeftLeafNodes(root.left)
+        sum += this.sumOfLeftLeafNodes(root.right)
+        return sum
+    }
+
+    sumOfLeafNodes(root = this.root, sum = 0) {
+        if (!root) return sum
+        if (!root.left && !root.right) {
+            return sum += root.value
+        }
+        return (this.sumOfLeafNodes(root.left, sum) + this.sumOfLeafNodes(root.right, sum))
+    }
+
     isComplete(root = this.root) {
         if (!root) return true
         let queue = [root]
@@ -386,8 +405,8 @@ console.log('Is perfect tree :', perfectBST.isPerfectBinaryTree());
 console.log('Is Balanced tree :', perfectBST.isBalanced());
 const bst1 = new BinarySearchTree()
 const bst2 = new BinarySearchTree()
-    ;[5, 3, 6, 2, 3].forEach(item => bst1.insert(item))
+    ;[5, 3, 9, 2, 3].forEach(item => bst1.insert(item))
     ;[5, 3, 6, 2, 3].forEach(item => bst2.insert(item))
-console.log('is this same tree:', bst1.isSameTree(bst1, bst2))
+console.log('is this same tree:', bst1.isSameTree(bst1.root, bst2.root))
 console.log('Lowest common ancestor of 2,5 is :', bst.lowestCommonAncestor(2, 5))
 console.log('bst1 is complete?:', bst1.isComplete())
